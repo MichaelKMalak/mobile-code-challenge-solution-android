@@ -1,0 +1,9 @@
+<resources>
+  <string name="app_name">Mobile Code Challenge</string>
+  <string name="no_booking">No open bookings</string>
+  <string name="waiting_for_pickup">Waiting for Pickup</string>
+  <string name="in_vehicle">In vehicle</string>
+  <string name="ride_finished">Ride has finished</string>
+  <string name="pickup_at">Pickup at</string>
+  <string name="dropoff_at">Dropoff at</string>
+</resources>

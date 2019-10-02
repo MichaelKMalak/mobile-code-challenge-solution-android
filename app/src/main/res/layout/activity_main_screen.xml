@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.view.MapLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      />
+
+  <io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.view.RideUpdatesLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      />
+
+</RelativeLayout>

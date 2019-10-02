@@ -1,0 +1,52 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+apply from: '../buildsystem/dependencies.gradle'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "io.door2door.mobile_code_challenge"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    kapt {
+        mapDiagnosticLocations = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation appDependencies.androidAppCompat
+    implementation appDependencies.androidCoreKtx
+    implementation appDependencies.kotlinStdLib
+    implementation appDependencies.ankoAppCompatV7Commons
+    implementation appDependencies.rxKotlin
+    implementation appDependencies.rxAndroid
+    implementation appDependencies.dagger
+    kapt appDependencies.daggerCompiler
+    implementation appDependencies.googleMaps
+    implementation appDependencies.okHttp
+    implementation appDependencies.okHttpLogging
+    implementation appDependencies.moshi
+    implementation appDependencies.moshiAdapters
+
+    testImplementation appTestDependencies.junit
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation appTestDependencies.mockitoKotlin
+}
