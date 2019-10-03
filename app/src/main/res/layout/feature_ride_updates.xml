@@ -17,7 +17,8 @@
         android:layout_marginEnd="@dimen/booking_general_margin"
         android:layout_marginBottom="@dimen/booking_general_margin"
         android:background="@color/support_grey"
-        android:padding="@dimen/one_column" />
+        android:padding="@dimen/one_column"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/addressesTextView"
@@ -30,5 +31,6 @@
         android:layout_marginEnd="@dimen/booking_general_margin"
         android:layout_marginBottom="@dimen/booking_general_margin"
         android:background="@color/support_grey"
-        android:padding="@dimen/one_column" />
+        android:padding="@dimen/one_column"
+        android:visibility="invisible"/>
 </merge>

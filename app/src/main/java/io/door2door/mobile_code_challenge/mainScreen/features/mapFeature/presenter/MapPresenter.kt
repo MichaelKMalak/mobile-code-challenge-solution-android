@@ -8,5 +8,5 @@ interface MapPresenter {
 
   fun viewDetached()
 
-  //fun mapLoaded(currentVehicleLocation: LatLng?)
+  fun mapLoaded()
 }

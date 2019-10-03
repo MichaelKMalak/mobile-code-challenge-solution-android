@@ -23,17 +23,16 @@ class MapPresenterImp @Inject constructor(private val mapView: MapView,
 
   override fun viewAttached() {
     mapView.obtainGoogleMap()
-      this.subscribeToVehicleLocationUpdates()
-      //subscribeToStatusLocationUpdates()
   }
 
   override fun viewDetached() {
     disposables.dispose()
   }
 
-  //override fun mapLoaded(currentVehicleLocation: LatLng?) {
-      //currentVehicleLocation?.let { mapView.updateMapView(it) }
-  //}
+  override fun mapLoaded() {
+      this.subscribeToVehicleLocationUpdates()
+      //subscribeToStatusLocationUpdates()
+  }
 
     //private fun subscribeToStatusLocationUpdates()
     //getVehicleLocationUpdates from mainScreenInteractor

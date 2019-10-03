@@ -70,7 +70,7 @@ class MapLayout : MapView, RelativeLayout {
   override fun obtainGoogleMap() {
     mapView.getMapAsync {
       googleMap = it
-      //mapPresenter.mapLoaded(null)
+      mapPresenter.mapLoaded()
       obtainVehicleMarker()
     }
   }
