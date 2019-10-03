@@ -32,14 +32,12 @@ class RideUpdatesPresenterImp @Inject constructor(
                 .subscribeOn(Schedulers.io()) //thread to run on
                 .observeOn(AndroidSchedulers.mainThread()) //thread subscriber runs on
                 .subscribe({
-                    //todo
                     rideUpdatesView.loadBookingStatus(
                         it.status,
                         it.isBookingClosed,
                         it.pickupAddress,
                         it.dropoffAddress
                     )
-
                     //should I add Error handling to the subscriber? https://blog.danlew.net/2014/09/30/grokking-rxjava-part-3/
                     //convert slow methods to observable? and using it to solve lifecycle problems https://blog.danlew.net/2014/10/08/grokking-rxjava-part-4/
 

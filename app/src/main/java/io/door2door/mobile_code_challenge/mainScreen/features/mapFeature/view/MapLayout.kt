@@ -9,6 +9,7 @@ import android.util.Property
 import android.view.LayoutInflater
 import android.view.animation.LinearInterpolator
 import android.widget.RelativeLayout
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
@@ -35,6 +36,7 @@ class MapLayout : MapView, RelativeLayout {
     private var markerPositionAnimator: ObjectAnimator? = null
     private var markerRotationAnimator: ObjectAnimator? = null
     private var vehicleMarker: Marker? = null
+
 
     constructor(context: Context) : super(context) {
         setUp(context)
@@ -88,6 +90,11 @@ class MapLayout : MapView, RelativeLayout {
 
     override fun loadVehicleLocation(finalLatLng: LatLng) {
         animateMarker(vehicleMarker, finalLatLng)
+        moveCamera(finalLatLng)
+    }
+
+    private fun moveCamera(finalLatLng: LatLng) {
+        googleMap?.moveCamera(CameraUpdateFactory.newLatLng(finalLatLng))
     }
 
     private fun animateMarker(marker: Marker?, finalLatLng: LatLng) {
