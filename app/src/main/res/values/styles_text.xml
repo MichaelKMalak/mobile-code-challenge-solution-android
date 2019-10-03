@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="text_regular_bold">
+    <style name="text_regular_bold" tools:keep="@style/text_regular_bold">
         <item name="android:textColor">@color/support_dark</item>
         <item name="android:textSize">@dimen/text_regular</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="text_regular">
+    <style name="text_regular" tools:keep="@style/text_regular">
         <item name="android:textColor">@color/support_dark</item>
         <item name="android:textSize">@dimen/text_regular</item>
     </style>
 
-    <style name="text_small">
+    <style name="text_small" tools:keep="@style/text_small">
         <item name="android:textColor">@color/support_dark</item>
         <item name="android:textSize">@dimen/text_small</item>
     </style>
 
-    <style name="text_small_bold_grey">
+    <style name="text_small_bold_grey" tools:keep="@style/text_small_bold_grey">
         <item name="android:textColor">@color/support_grey</item>
         <item name="android:textSize">@dimen/text_small</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="text_small_grey">
+    <style name="text_small_grey" tools:keep="@style/text_small_grey">
         <item name="android:textColor">@color/support_grey</item>
         <item name="android:textSize">@dimen/text_small</item>
     </style>

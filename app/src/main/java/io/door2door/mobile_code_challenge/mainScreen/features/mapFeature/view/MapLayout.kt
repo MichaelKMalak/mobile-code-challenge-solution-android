@@ -25,7 +25,6 @@ import javax.inject.Inject
 
 private const val MARKER_ANIMATION_DURATION = 1000L
 private const val VEHICLE_MARKER_ANCHOR = 0.5f
-private const val MARKER_ELEVATION = 3f
 
 class MapLayout : MapView, RelativeLayout {
 

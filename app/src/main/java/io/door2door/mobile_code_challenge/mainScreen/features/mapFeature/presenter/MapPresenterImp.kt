@@ -1,7 +1,6 @@
 package io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.presenter
 
 import android.util.Log
-import io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.mapper.StatusLocationMapper
 import io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.mapper.VehicleLocationMapper
 import io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.view.MapView
 import io.door2door.mobile_code_challenge.mainScreen.interactor.MainScreenInteractor
@@ -13,8 +12,7 @@ import javax.inject.Inject
 class MapPresenterImp @Inject constructor(
     private val mapView: MapView,
     private val mainScreenInteractor: MainScreenInteractor,
-    private val vehicleLocationMapper: VehicleLocationMapper,
-    private val statusLocationMapper: StatusLocationMapper
+    private val vehicleLocationMapper: VehicleLocationMapper
 ) : MapPresenter {
 
     private val disposables = CompositeDisposable()

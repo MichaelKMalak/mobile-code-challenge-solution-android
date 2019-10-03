@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="support_dark">#4b545a</color>
+    <color name="support_dark" tools:keep="@color/support_dark">#4b545a</color>
     <color name="support_grey">#979797</color>
-    <color name="divider">#E7E7E7</color>
-    <color name="background_primary">#ffffff</color>
+    <color name="divider" tools:keep="@color/divider">#E7E7E7</color>
+    <color name="background_primary" tools:keep="@color/background_primary">#ffffff</color>
 </resources>
