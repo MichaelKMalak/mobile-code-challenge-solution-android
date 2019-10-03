@@ -66,17 +66,18 @@ class RideUpdatesLayout : RelativeLayout, RideUpdatesView {
         }
         addressesTextView.isVisible = !bookingClosed
         addressesTextView.text = StringBuilder()
-            .append(R.string.address_from)
-            .append(pickupAddress)
-            .append(R.string.address_to)
+            .append(resources.getString(R.string.address_from)).append(" ")
+            .append(pickupAddress).append(" ")
+            .append(resources.getString(R.string.address_to)).append(" ")
             .append(dropoffAddress)
     }
 
     private fun updateStatus(status: String, bookingClosed: Boolean) {
         statusTextView.isVisible = true
-        val bookingStatus = if (bookingClosed) " [Booking Closed]" else " [Booking Open]"
+        val bookingStatus = if (bookingClosed) resources.getString(R.string.booking_open)
+        else resources.getString(R.string.booking_open)
         statusTextView.text = StringBuilder()
-            .append(status)
+            .append(status).append(" ")
             .append(bookingStatus)
      }
 }

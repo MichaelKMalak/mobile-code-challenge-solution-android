@@ -6,6 +6,8 @@
   <string name="ride_finished">Ride has finished</string>
   <string name="pickup_at">Pickup at</string>
   <string name="dropoff_at">Dropoff at</string>
-  <string name="address_from">"From </string>
-  <string name="address_to">" to </string>
+  <string name="address_from">From</string>
+  <string name="address_to">to</string>
+  <string name="booking_closed"> [Booking Closed]</string>
+  <string name="booking_open"> [Booking Open]</string>
 </resources>
