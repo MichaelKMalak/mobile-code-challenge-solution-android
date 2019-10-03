@@ -4,32 +4,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="ContentDescription"
-    tools:parentTag="android.widget.RelativeLayout">
+    tools:parentTag="android.widget.RelativeLayout"
+    >
 
     <TextView
         android:id="@+id/statusTextView"
         style="@style/AppTheme"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/booking_general_margin"
         android:layout_marginTop="@dimen/booking_general_margin"
         android:layout_marginEnd="@dimen/booking_general_margin"
         android:layout_marginBottom="@dimen/booking_general_margin"
-        android:background="@color/support_grey"
-        android:padding="@dimen/one_column"
+        android:background="@color/background_primary"
+        android:padding="@dimen/two_column"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
         android:visibility="invisible" />
 
     <TextView
         android:id="@+id/addressesTextView"
         style="@style/AppTheme"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="@dimen/booking_general_margin"
         android:layout_marginTop="@dimen/booking_general_margin"
         android:layout_marginEnd="@dimen/booking_general_margin"
-        android:layout_marginBottom="@dimen/booking_general_margin"
-        android:background="@color/support_grey"
-        android:padding="@dimen/one_column"
+        android:layout_marginBottom="@dimen/four_column"
+        android:background="@color/background_primary"
+        android:padding="@dimen/two_column"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
         android:visibility="invisible" />
+
 </merge>
