@@ -27,17 +27,17 @@ the [requirements](https://github.com/door2door-io/d2d-code-challenges/tree/mast
 ## What is new? (In the main branch)
 
 1. In '..features.mapFeature'
-	a. In '.presenter': 
+	1. In '.presenter': 
 		Added 'subscribeToVehicleLocationUpdates()' function implementation. It's called when the 'mapLoaded()'
-	b. In '.view': 
+	2. In '.view': 
 		1. Added 'updateVehicleLocation(LatLng)' that is the subscriber of 'subscribeToVehicleLocationUpdates()'
 		2. It updates 'animateMarker(LatLng)' and 'moveCamera(LatLng)' which shows the vehicle and move the map with it.
 		3. Function 'loadVehicleMarker()' is called when the 'presenter' calls 'obtainGoogleMap()'.
 
 2. In '..features.rideUpdates'
-	a. In '.presenter': 
+	1. In '.presenter': 
 		Added a call to 'updateBookingStatus' in view
-	b. In '.view': 
+	2. In '.view': 
 		1. Added 'updateBookingStatus' that takes many strings from the presenter (source: the network)
 		2. This function only 'updatesAddresses' and 'updatesStatus'
 
