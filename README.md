@@ -61,4 +61,4 @@ I am creating a branch for this repository in order to attempt to solve some of 
 3. Google's API_key is set open to be used. However, if it was expired, kindly follow the instructions to create a Google Maps API key and paste it in the aforementioned xml file.
 
 ## Screenshot
-![](https://raw.githubusercontent.com/MichaelKMalak/mobile-code-challenge-solution-android/master/img/Snapshot.PNG)
+![](https://raw.githubusercontent.com/MichaelKMalak/mobile-code-challenge-solution-android/master/img/Snapshot_2.PNG)
