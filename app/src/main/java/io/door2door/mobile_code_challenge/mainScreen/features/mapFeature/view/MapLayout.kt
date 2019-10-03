@@ -28,112 +28,117 @@ private const val MARKER_ELEVATION = 3f
 
 class MapLayout : MapView, RelativeLayout {
 
-  @Inject
-  lateinit var mapPresenter: MapPresenter
+    @Inject
+    lateinit var mapPresenter: MapPresenter
 
-  private var googleMap: GoogleMap? = null
-  private var markerPositionAnimator: ObjectAnimator? = null
-  private var markerRotationAnimator: ObjectAnimator? = null
-  private var vehicleMarker: Marker? = null
+    private var googleMap: GoogleMap? = null
+    private var markerPositionAnimator: ObjectAnimator? = null
+    private var markerRotationAnimator: ObjectAnimator? = null
+    private var vehicleMarker: Marker? = null
 
-  constructor(context: Context) : super(context) {
-    setUp(context)
-  }
-
-  constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-    setUp(context)
-  }
-
-  constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-      context, attrs,
-      defStyleAttr
-  ) {
-    setUp(context)
-  }
-
-  private fun setUp(context: Context) {
-    LayoutInflater.from(context).inflate(R.layout.feature_map, this, true)
-    injectDependencies()
-    mapPresenter.viewAttached()
-  }
-
-  private fun injectDependencies() {
-    DaggerMapComponent.builder()
-        .mainScreenComponent((context as MainScreenActivity).mainScreenComponent)
-        .mapModule(MapModule(this))
-        .build()
-        .injectMapView(this)
-  }
-
-  override fun obtainGoogleMap() {
-    mapView.getMapAsync {
-      googleMap = it
-      mapPresenter.mapLoaded()
-      loadVehicleMarker()
+    constructor(context: Context) : super(context) {
+        setUp(context)
     }
-  }
 
-  private fun loadVehicleMarker() {
-    vehicleMarker = googleMap?.addMarker(MarkerOptions()
-          .position(LatLng(0.0, 0.0))
-          .anchor(VEHICLE_MARKER_ANCHOR, VEHICLE_MARKER_ANCHOR))
-    vehicleMarker!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.marker_vehicle))
-  }
-
-  override fun clearMap() {
-    googleMap?.clear()
-  }
-
-   override fun loadVehicleLocation (finalLatLng: LatLng) {
-     animateMarker(vehicleMarker, finalLatLng)
-   }
-
-  private fun animateMarker(marker: Marker?, finalLatLng: LatLng) {
-    marker?.let {
-      if (marker.position != null) {
-        animateMarkerPosition(marker, finalLatLng)
-        animateMarkerRotation(marker, finalLatLng)
-      } else {
-        marker.position = finalLatLng
-      }
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        setUp(context)
     }
-  }
 
-  private fun animateMarkerPosition(marker: Marker, finalLatLng: LatLng) {
-    val interpolator = LinearInterpolator()
-    val typeEvaluator = TypeEvaluator<LatLng> { fraction, fromLatLng, toLatLng ->
-      val interpolation = interpolator.getInterpolation(fraction)
-      val lat = (toLatLng.latitude - fromLatLng.latitude) * interpolation + fromLatLng.latitude
-      val lng = (toLatLng.longitude - fromLatLng.longitude) * interpolation + fromLatLng.longitude
-      return@TypeEvaluator LatLng(lat, lng)
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context, attrs,
+        defStyleAttr
+    ) {
+        setUp(context)
     }
-    val property = Property.of(Marker::class.java, LatLng::class.java, "position")
-    markerPositionAnimator?.cancel()
-    markerPositionAnimator = ObjectAnimator.ofObject(marker, property, typeEvaluator, finalLatLng)
-    markerPositionAnimator?.duration = MARKER_ANIMATION_DURATION
-    markerPositionAnimator?.start()
-  }
 
-  private fun animateMarkerRotation(marker: Marker, finalLatLng: LatLng) {
-    val initialLocation = marker.position.convertToLocation()
-    val finalLocation = finalLatLng.convertToLocation()
-    val newRotation = initialLocation?.bearingTo(finalLocation)
-    newRotation?.let {
-      val rotationProperty = Property.of(Marker::class.java, Float::class.java, "rotation")
-      markerRotationAnimator?.cancel()
-      markerRotationAnimator = ObjectAnimator.ofFloat(marker, rotationProperty, it)
-      markerRotationAnimator?.duration = MARKER_ANIMATION_DURATION
-      markerRotationAnimator?.start()
+    private fun setUp(context: Context) {
+        LayoutInflater.from(context).inflate(R.layout.feature_map, this, true)
+        injectDependencies()
+        mapPresenter.viewAttached()
     }
-  }
 
-  private fun LatLng?.convertToLocation(): Location? = this?.let {
-    val location = Location("")
-    location.latitude = latitude
-    location.longitude = longitude
-    return location
-  }
- // override fun getBearing(): Float? = vehicleMarker?.rotation?.plus(180f)
+    private fun injectDependencies() {
+        DaggerMapComponent.builder()
+            .mainScreenComponent((context as MainScreenActivity).mainScreenComponent)
+            .mapModule(MapModule(this))
+            .build()
+            .injectMapView(this)
+    }
+
+    override fun obtainGoogleMap() {
+        mapView.getMapAsync {
+            googleMap = it
+            mapPresenter.mapLoaded()
+            loadVehicleMarker()
+        }
+    }
+
+    private fun loadVehicleMarker() {
+        vehicleMarker = googleMap?.addMarker(
+            MarkerOptions()
+                .position(LatLng(0.0, 0.0))
+                .anchor(VEHICLE_MARKER_ANCHOR, VEHICLE_MARKER_ANCHOR)
+        )
+        vehicleMarker!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.marker_vehicle))
+    }
+
+    override fun clearMap() {
+        googleMap?.clear()
+    }
+
+    override fun loadVehicleLocation(finalLatLng: LatLng) {
+        animateMarker(vehicleMarker, finalLatLng)
+    }
+
+    private fun animateMarker(marker: Marker?, finalLatLng: LatLng) {
+        marker?.let {
+            if (marker.position != null) {
+                animateMarkerPosition(marker, finalLatLng)
+                animateMarkerRotation(marker, finalLatLng)
+            } else {
+                marker.position = finalLatLng
+            }
+        }
+    }
+
+    private fun animateMarkerPosition(marker: Marker, finalLatLng: LatLng) {
+        val interpolator = LinearInterpolator()
+        val typeEvaluator = TypeEvaluator<LatLng> { fraction, fromLatLng, toLatLng ->
+            val interpolation = interpolator.getInterpolation(fraction)
+            val lat =
+                (toLatLng.latitude - fromLatLng.latitude) * interpolation + fromLatLng.latitude
+            val lng =
+                (toLatLng.longitude - fromLatLng.longitude) * interpolation + fromLatLng.longitude
+            return@TypeEvaluator LatLng(lat, lng)
+        }
+        val property = Property.of(Marker::class.java, LatLng::class.java, "position")
+        markerPositionAnimator?.cancel()
+        markerPositionAnimator =
+            ObjectAnimator.ofObject(marker, property, typeEvaluator, finalLatLng)
+        markerPositionAnimator?.duration = MARKER_ANIMATION_DURATION
+        markerPositionAnimator?.start()
+    }
+
+    private fun animateMarkerRotation(marker: Marker, finalLatLng: LatLng) {
+        val initialLocation = marker.position.convertToLocation()
+        val finalLocation = finalLatLng.convertToLocation()
+        val newRotation = initialLocation?.bearingTo(finalLocation)
+        newRotation?.let {
+            val rotationProperty = Property.of(Marker::class.java, Float::class.java, "rotation")
+            markerRotationAnimator?.cancel()
+            markerRotationAnimator = ObjectAnimator.ofFloat(marker, rotationProperty, it)
+            markerRotationAnimator?.duration = MARKER_ANIMATION_DURATION
+            markerRotationAnimator?.start()
+        }
+    }
+
+    private fun LatLng?.convertToLocation(): Location? = this?.let {
+        val location = Location("")
+        location.latitude = latitude
+        location.longitude = longitude
+        return location
+    }
+    // override fun getBearing(): Float? = vehicleMarker?.rotation?.plus(180f)
 }
 
 

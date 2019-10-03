@@ -4,11 +4,11 @@ import com.google.android.gms.maps.model.LatLng
 
 interface MapView {
 
-  fun obtainGoogleMap()
+    fun obtainGoogleMap()
 
-  fun clearMap()
+    fun clearMap()
 
-  fun loadVehicleLocation (finalLatLng: LatLng)
+    fun loadVehicleLocation(finalLatLng: LatLng)
 
-  //fun getBearing(): Float?
+    //fun getBearing(): Float?
 }

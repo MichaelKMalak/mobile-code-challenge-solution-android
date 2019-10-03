@@ -1,10 +1,8 @@
 package io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.view
 
 import android.content.Context
-import android.content.res.Resources
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.RelativeLayout
 import androidx.core.view.isVisible
 import io.door2door.mobile_code_challenge.R
@@ -13,7 +11,6 @@ import io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.dagger
 import io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.presenter.RideUpdatesPresenter
 import io.door2door.mobile_code_challenge.mainScreen.view.MainScreenActivity
 import kotlinx.android.synthetic.main.feature_ride_updates.view.*
-import java.lang.StringBuilder
 import javax.inject.Inject
 
 class RideUpdatesLayout : RelativeLayout, RideUpdatesView {

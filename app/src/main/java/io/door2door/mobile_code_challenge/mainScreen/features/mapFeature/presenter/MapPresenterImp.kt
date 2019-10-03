@@ -10,27 +10,29 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MapPresenterImp @Inject constructor(private val mapView: MapView,
+class MapPresenterImp @Inject constructor(
+    private val mapView: MapView,
     private val mainScreenInteractor: MainScreenInteractor,
     private val vehicleLocationMapper: VehicleLocationMapper,
-    private val statusLocationMapper: StatusLocationMapper) : MapPresenter {
+    private val statusLocationMapper: StatusLocationMapper
+) : MapPresenter {
 
     private val disposables = CompositeDisposable()
-    private  val tag = MapPresenterImp::class.simpleName
+    private val tag = MapPresenterImp::class.simpleName
 
 
-  override fun viewAttached() {
-    mapView.obtainGoogleMap()
-  }
+    override fun viewAttached() {
+        mapView.obtainGoogleMap()
+    }
 
-  override fun viewDetached() {
-    disposables.dispose()
-  }
+    override fun viewDetached() {
+        disposables.dispose()
+    }
 
-  override fun mapLoaded() {
-      this.subscribeToVehicleLocationUpdates()
-      //subscribeToStatusLocationUpdates()
-  }
+    override fun mapLoaded() {
+        this.subscribeToVehicleLocationUpdates()
+        //subscribeToStatusLocationUpdates()
+    }
 
     //private fun subscribeToStatusLocationUpdates()
     //getVehicleLocationUpdates from mainScreenInteractor
@@ -42,9 +44,10 @@ class MapPresenterImp @Inject constructor(private val mapView: MapView,
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 mapView.loadVehicleLocation(it.latLng)
-              //  mainScreenInteractor.bearing = mapView.getBearing()
+                //  mainScreenInteractor.bearing = mapView.getBearing()
             }, {
                 Log.d(tag, "Error on getting vehicle location updates")
-            }))
+            })
+        )
     }
 }

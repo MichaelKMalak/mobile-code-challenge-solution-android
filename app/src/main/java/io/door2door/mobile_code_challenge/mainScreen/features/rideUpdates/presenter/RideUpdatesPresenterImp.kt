@@ -12,38 +12,46 @@ import javax.inject.Inject
 class RideUpdatesPresenterImp @Inject constructor(
     private val rideUpdatesView: RideUpdatesView,
     private val mainScreenInteractor: MainScreenInteractor,
-    private val bookingStatusMapper: BookingStatusMapper) : RideUpdatesPresenter {
+    private val bookingStatusMapper: BookingStatusMapper
+) : RideUpdatesPresenter {
 
-  private val disposables = CompositeDisposable()
-  private val tag = RideUpdatesPresenterImp::class.simpleName
+    private val disposables = CompositeDisposable()
+    private val tag = RideUpdatesPresenterImp::class.simpleName
 
-  override fun viewAttached() {
-    subscribeToBookingStatusUpdates()
-  }
+    override fun viewAttached() {
+        subscribeToBookingStatusUpdates()
+    }
 
-  override fun viewDetached() {
-    disposables.dispose()
-  }
+    override fun viewDetached() {
+        disposables.dispose()
+    }
 
-  private fun subscribeToBookingStatusUpdates() {
-    disposables.add(mainScreenInteractor.getBookingStatusUpdates(bookingStatusMapper)
-        .subscribeOn(Schedulers.io()) //thread to run on
-        .observeOn(AndroidSchedulers.mainThread()) //thread subscriber runs on
-        .subscribe({
-          //todo
-            rideUpdatesView.loadBookingStatus(it.status,it.isBookingClosed,  it.pickupAddress, it.dropoffAddress)
+    private fun subscribeToBookingStatusUpdates() {
+        disposables.add(
+            mainScreenInteractor.getBookingStatusUpdates(bookingStatusMapper)
+                .subscribeOn(Schedulers.io()) //thread to run on
+                .observeOn(AndroidSchedulers.mainThread()) //thread subscriber runs on
+                .subscribe({
+                    //todo
+                    rideUpdatesView.loadBookingStatus(
+                        it.status,
+                        it.isBookingClosed,
+                        it.pickupAddress,
+                        it.dropoffAddress
+                    )
 
-            //should I add Error handling to the subscriber? https://blog.danlew.net/2014/09/30/grokking-rxjava-part-3/
-            //convert slow methods to observable? and using it to solve lifecycle problems https://blog.danlew.net/2014/10/08/grokking-rxjava-part-4/
+                    //should I add Error handling to the subscriber? https://blog.danlew.net/2014/09/30/grokking-rxjava-part-3/
+                    //convert slow methods to observable? and using it to solve lifecycle problems https://blog.danlew.net/2014/10/08/grokking-rxjava-part-4/
 
-        }, {
-          Log.d(tag, "Error on getting status updates")
-        }))
-  }
-  //  private fun subscribeToNavBearing(){
-        //disposables.add(mainScreenInteractor.bearing)
-     //   .. {rideUpdatesView.updateBearing(it)}
-   // }
+                }, {
+                    Log.d(tag, "Error on getting status updates")
+                })
+        )
+    }
+    //  private fun subscribeToNavBearing(){
+    //disposables.add(mainScreenInteractor.bearing)
+    //   .. {rideUpdatesView.updateBearing(it)}
+    // }
 
 }
 
