@@ -6,8 +6,9 @@ import io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.model.
 import io.reactivex.Observable
 
 interface MainScreenInteractor {
+//  var bearing<Float>: Observable
 
-  fun connectToWebSocket()
+    fun connectToWebSocket()
 
   fun <V> getVehicleLocationUpdates(
       bookingLocationMapper: BaseBookingMapper<V>): Observable<V>

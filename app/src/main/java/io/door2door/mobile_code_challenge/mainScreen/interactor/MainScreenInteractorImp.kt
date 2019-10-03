@@ -8,8 +8,10 @@ import javax.inject.Inject
 class MainScreenInteractorImp @Inject constructor(
     private val bookingsWebSocket: BookingsWebSocket) :
     MainScreenInteractor {
+    //override var bearing: Float? = null
 
-  override fun <V> getVehicleLocationUpdates(
+
+    override fun <V> getVehicleLocationUpdates(
       bookingLocationMapper: BaseBookingMapper<V>): Observable<V> {
     return bookingsWebSocket.getVehicleLocationUpdates()
         .map { bookingLocationMapper.mapDataModelToViewModel(it) }

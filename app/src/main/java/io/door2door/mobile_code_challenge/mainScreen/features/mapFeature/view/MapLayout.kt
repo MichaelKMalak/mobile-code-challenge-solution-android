@@ -70,13 +70,15 @@ class MapLayout : MapView, RelativeLayout {
   override fun obtainGoogleMap() {
     mapView.getMapAsync {
       googleMap = it
-      mapPresenter.mapLoaded()
+      //mapPresenter.mapLoaded(null)
       obtainVehicleMarker()
     }
   }
 
   private fun obtainVehicleMarker() {
-    vehicleMarker = googleMap?.addMarker(MarkerOptions().position(LatLng(0.0, 0.0)))
+    vehicleMarker = googleMap?.addMarker(MarkerOptions()
+          .position(LatLng(0.0, 0.0))
+          .anchor(VEHICLE_MARKER_ANCHOR, VEHICLE_MARKER_ANCHOR))
     vehicleMarker!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.marker_vehicle))
   }
 
@@ -133,7 +135,7 @@ class MapLayout : MapView, RelativeLayout {
     location.longitude = longitude
     return location
   }
-
+ // override fun getBearing(): Float? = vehicleMarker?.rotation?.plus(180f)
 }
 
 

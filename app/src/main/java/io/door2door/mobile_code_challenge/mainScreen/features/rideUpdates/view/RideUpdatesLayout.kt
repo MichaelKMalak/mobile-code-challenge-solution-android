@@ -53,11 +53,11 @@ class RideUpdatesLayout : RelativeLayout, RideUpdatesView {
     rideUpdatesPresenter.viewAttached()
   }
     override fun updateStatus(status: String, pickupAddress: String?, isBookingClosed: Boolean, dropoffAddress: String?) {
-       val bookingStatus = if (isBookingClosed) "Booking is Closed." else "Booking is Open."
+       val bookingStatus = if (isBookingClosed) "Booking: Closed." else "Booking: Open."
         val dropAddress = if(dropoffAddress.isNullOrBlank()) "" else "Dropoff Address: $dropoffAddress"
         val pickAddress = if (pickupAddress.isNullOrBlank()) "" else "Pickup Address: $pickupAddress"
         textView.text =     """
-        Current status: $status
+        $status
         $bookingStatus
         $dropAddress
         $pickAddress

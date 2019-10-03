@@ -33,7 +33,7 @@ class RideUpdatesPresenterImp @Inject constructor(
         .subscribe({
           //todo
             rideUpdatesView.updateStatus(it.status, it.pickupAddress,it.isBookingClosed, it.dropoffAddress)
-            Log.i(tag, it.status+" "+it.pickupAddress + " " + it.dropoffAddress +" "+ it.isBookingClosed)
+
             //should I add Error handling to the subscriber? https://blog.danlew.net/2014/09/30/grokking-rxjava-part-3/
             //convert slow methods to observable? and using it to solve lifecycle problems https://blog.danlew.net/2014/10/08/grokking-rxjava-part-4/
 
@@ -41,4 +41,10 @@ class RideUpdatesPresenterImp @Inject constructor(
           Log.d(tag, "Error on getting status updates")
         }))
   }
+  //  private fun subscribeToNavBearing(){
+        //disposables.add(mainScreenInteractor.bearing)
+     //   .. {rideUpdatesView.updateBearing(it)}
+   // }
+
 }
+
