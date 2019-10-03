@@ -52,7 +52,7 @@ class RideUpdatesLayout : RelativeLayout, RideUpdatesView {
     super.onAttachedToWindow()
     rideUpdatesPresenter.viewAttached()
   }
-    override fun loadBookingStatus(status: String, isBookingClosed: Boolean, pickupAddress: String?, dropoffAddress: String?) {
+    override fun updateBookingStatus(status: String, isBookingClosed: Boolean, pickupAddress: String?, dropoffAddress: String?) {
        updateStatus(status, isBookingClosed)
        updateAddresses(pickupAddress, dropoffAddress, isBookingClosed)
     }

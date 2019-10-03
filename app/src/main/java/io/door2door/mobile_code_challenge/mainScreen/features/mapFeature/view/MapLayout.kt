@@ -88,7 +88,7 @@ class MapLayout : MapView, RelativeLayout {
         googleMap?.clear()
     }
 
-    override fun loadVehicleLocation(finalLatLng: LatLng) {
+    override fun updateVehicleLocation(finalLatLng: LatLng) {
         animateMarker(vehicleMarker, finalLatLng)
         moveCamera(finalLatLng)
     }

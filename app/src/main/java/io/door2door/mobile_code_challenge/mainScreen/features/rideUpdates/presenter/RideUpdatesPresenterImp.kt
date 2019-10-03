@@ -32,7 +32,7 @@ class RideUpdatesPresenterImp @Inject constructor(
                 .subscribeOn(Schedulers.io()) //thread to run on
                 .observeOn(AndroidSchedulers.mainThread()) //thread subscriber runs on
                 .subscribe({
-                    rideUpdatesView.loadBookingStatus(
+                    rideUpdatesView.updateBookingStatus(
                         it.status,
                         it.isBookingClosed,
                         it.pickupAddress,

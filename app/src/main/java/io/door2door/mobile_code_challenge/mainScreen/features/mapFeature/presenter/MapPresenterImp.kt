@@ -43,7 +43,7 @@ class MapPresenterImp @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                mapView.loadVehicleLocation(it.latLng)
+                mapView.updateVehicleLocation(it.latLng)
                 //  mainScreenInteractor.bearing = mapView.getBearing()
             }, {
                 Log.d(tag, "Error on getting vehicle location updates")

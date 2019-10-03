@@ -1,83 +1,62 @@
 # Mobile Code Challenge Android Solution
 
-This is a partial solution for the mobile code challenge, on the basis of which you should be able to solve the requirements of the code challenge.
+This is a solution to the mobile code challenge by 'allygator shuttle', door2door's mobility service that operates in Berlin, and provides a mobile app that allows users to 
+book pooled rides and track their progress.
 
+The application is basically a simulation (visualization) on google map view for data sent from [door2door's websocket](https://d2d-frontend-code-challenge.herokuapp.com/docs)).
 
-We have built the basic architecture, which is close to the one used in our actual app.
-Based on this framework we expect you to implement a solution that satisfies 
-the requirements listed in the [mobile code challenge](https://github.com/door2door-io/d2d-code-challenges/tree/master/mobile). 
-Feel free to add more things, but it is not required in order to have your code challenge accepted.
-
-## Project setup
-
-Import the project using Android studio. Go to `google_maps_api.xml` and follow the instructions to 
-create a Google Maps API key and paste it there.
-
-## Some tips on how to work with the existing code
-
-Use the methods from `MainScreenInteractor` to get Observable streams of the events coming 
-from the WebSocket endpoint (see [documentation](https://d2d-frontend-code-challenge.herokuapp.com/docs)) 
-and display them in a way you see fit. There is an example on how to subscribe to an Observable stream 
-in the `RideUpdatesPresenter` implementation. If you have not worked with RxJava before, don't be intimidated.
-We don't expect you to understand everything and become an expert, but rather want to see how you can work with 
-it based on a given example.
-
-In the `MapLayout` make use of the existing private methods to handle marker animation.
-We have provided a vehicle icon which you can use, or feel free to add your own image or use 
-the basic marker without an icon.
-
-Implement your own design for the `feature_ride_updates` layout. You can make use of the 
-colours and styles we have provided or add your own. Make sure to display all the relevant 
-information.
-
-## Resources
-
-* Kotlin documentation and tutorials - https://kotlinlang.org
-* Rx documentation - http://reactivex.io/
-* RxJava - https://github.com/ReactiveX/RxJava
-
-================================================
-
-# Mobile code challenge
-
-'allygator shuttle', door2door's mobility service that operates in Berlin, provides a mobile app that allows users to 
-book pooled rides and track their progress. In order to enable users to be able to track the progress of their ride after they book it, 
-door2door needs you to provide a solution which:
-
+door2door's team implemented the basic architecture for this code and based on this framework I implemented a solution that satisfies 
+the [requirements](https://github.com/door2door-io/d2d-code-challenges/tree/master/mobile):
+ 
 1. shows the user the live location of their assigned vehicle on a map
 2. shows the ride's current status (waiting, in the vehicle, dropped off) in a UI component
 3. shows the ride's pickup and dropoff addresses in a UI component
 
-door2door has provided a WebSockets endpoint that will provide all of this information. It will send different events simulating the various states of a ridepooling ride. Your solution should visualise the information that is sent from this endpoint.
+## About the code
+1. In the presentation layer, MVP model is used. 
+2. Dagger 2.0 is used for Dependency Injection through out the code. 
+3. The archeticture model is very clean. 
+..1. 'Network' is in a separate module and communicates with the 'Interactor'. It also instentiates data classes like 'Event'
+..2. The 'Interactor' communicated with 'presenters' in each of the main and the two features
+..3. Each one of the two features is in MVP model so the view and the model communicate through the presenters
+..4. Each feature's 'mapper' inherits 'data' interface and overides its 'mapDataModelToViewModel' in different classes
+4. HTTPOK is used to handle communication with the websocket.
+5. moshi is used to easily map the JSON objects with data.
+6. RxKotlin and RxJava were used. Reactive programming is implemented for a more efficient use of resources setting the 'Event' as the observables so that the observers (subscribers) only work when notified. 
 
-- [Documentation of the WebSockets endpoint](https://d2d-frontend-code-challenge.herokuapp.com/docs)
-  - Note that this service goes to sleep when not in use, so it may take a few seconds to connect the first time you access it
+## What is new? (In the main branch)
 
-## _Optional_ extras
+1. In '..features.mapFeature'
+..a. In '.presenter': 
+...Added 'subscribeToVehicleLocationUpdates()' function implementation. It's called when the 'mapLoaded()'
+..b. In '.view': 
+...1. Added 'updateVehicleLocation(LatLng)' that is the subscriber of 'subscribeToVehicleLocationUpdates()'
+...2. It updates 'animateMarker(LatLng)' and 'moveCamera(LatLng)' which shows the vehicle and move the map with it.
+...3. Function 'loadVehicleMarker()' is called when the 'presenter' calls 'obtainGoogleMap()'.
 
-The following points are optional features that you may choose to implement, but they are not required in order to have your solution be accepted.
+2. In '..features.rideUpdates'
+..a. In '.presenter': 
+...Added a call to 'updateBookingStatus' in view
+..b. In '.view': 
+...1. Added 'updateBookingStatus' that takes many strings from the presenter (source: the network)
+...2. This function only 'updatesAddresses' and 'updatesStatus'
 
-- Visualise on the map the intermediate stops that the vehicle will make between the pickup and dropoff locations. Note that these stops may change over the duration of the journey.
-- Visualise the [navigation bearing](https://en.wikipedia.org/wiki/Bearing_(navigation)) of the vehicle to show which direction the vehicle is currently driving in.
+3. In '..res/layout/feature_ride_updates'
+..1.Added two text views: 'addressesTextView' with alignParentBottom and 'statusTextView' at the top of the screen.
+..2. Made use of the supported textStyles and added a backround tint for readability.
 
-## Technical assumptions
+## What is missing?
+I am creating a branch to this repository in order to attempt solve some of the missing features.
+1. Unit testing for both  'RideUpdatesPresenterImp' and 'MapPresenterImp'.
+2. A refresh button to refresh the connection with the web socket and handeling websocket's failure
+3. Visualising intermediate stops that the vehicle will make between the pickup and dropoff locations. 
+4. Displaying the navigation bearing angle of the vehicle to show which direction the vehicle is currently driving in.
+5. Adding a release Google Map API_key for releasing the application.
+6. Checking the Wifi connection and requesting it.
 
-- *If you are applying for an iOS Software Developer position*, then the solution must be implemented in **Swift**.
-- *If you are applying for an Android Software Developer position*, then the solution should preferably be implemented in **Kotlin**, but we would accept Java solutions too.
-- You are free to make use of any framework or library you please (if any), but you should justify your choice.
 
-## Delivery of your solution
+## How to use?
 
-Please deliver your solution to us as a publicly accessible git repository, or in a ZIP file. The repository should contain full instructions for us to build and run the project.
-
-## Reviewing
-
-The following description will give you an understanding of how we review the code challenge. What matters to us is to learn how you write code and what you consider as clean code. For us it is more important to have an understandable project than a complex algorithm.
-
-The criteria that we are looking for are the following:
-
-- Documentation: Is the project and the code properly documented?
-- Correctness: Is the task solved? Does the app handle properly all the events sent from the WebSockets enpoint? If there is anything missing, is the reason why it is missing documented?
-- Technology: Which libraries or approaches are used? Do they make sense for the task? Justify why you've decided to use those technologies to solve the code challenge.
-- Code quality: Is the code understandable and maintainable? What programming paradigm is being used? Is it implemented correctly? Is the project linted?
-- Tests: How is the project tested? Does the project contain system and unit tests? Is the entire project tested or just parts of it?
+1. Import the project using Android studio. 
+2. Go to `google_maps_api.xml` 
+3. Google's API_key is set open to be used. However, if it was expired, kindly follow the instructions to create a Google Maps API key and paste it in the aforementioned xml file.
