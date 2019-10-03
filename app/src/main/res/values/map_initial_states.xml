@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <integer name="map_initial_state_zoom">12</integer>
-  <item format="float" name="map_initial_state_lng" type="dimen">13.411967</item>
-  <item format="float" name="map_initial_state_lat" type="dimen">52.521778</item>
+    <integer name="map_initial_state_zoom">12</integer>
+    <item name="map_initial_state_lng" format="float" type="dimen">13.411967</item>
+    <item name="map_initial_state_lat" format="float" type="dimen">52.521778</item>
 </resources>

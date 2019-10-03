@@ -145,7 +145,6 @@ class MapLayout : MapView, RelativeLayout {
         location.longitude = longitude
         return location
     }
-    // override fun getBearing(): Float? = vehicleMarker?.rotation?.plus(180f)
 }
 
 

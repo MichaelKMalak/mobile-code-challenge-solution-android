@@ -15,50 +15,60 @@ import javax.inject.Inject
 
 class RideUpdatesLayout : RelativeLayout, RideUpdatesView {
 
-  @Inject
-  lateinit var rideUpdatesPresenter: RideUpdatesPresenter
+    @Inject
+    lateinit var rideUpdatesPresenter: RideUpdatesPresenter
 
-  constructor(context: Context) : super(context) {
-    setUp(context)
-  }
-
-  constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-    setUp(context)
-  }
-
-  constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-      context,
-      attrs,
-      defStyleAttr
-  ) {
-    setUp(context)
-  }
-
-  private fun setUp(context: Context) {
-    LayoutInflater.from(context).inflate(R.layout.feature_ride_updates, this, true)
-    injectDependencies()
-  }
-
-  private fun injectDependencies() {
-    DaggerRideUpdatesComponent.builder()
-        .mainScreenComponent((context as MainScreenActivity).mainScreenComponent)
-        .rideUpdatesModule(RideUpdatesModule(this))
-        .build()
-        .injectRideUpdatesView(this)
-
-  }
-
-  override fun onAttachedToWindow() {
-    super.onAttachedToWindow()
-    rideUpdatesPresenter.viewAttached()
-  }
-    override fun updateBookingStatus(status: String, isBookingClosed: Boolean, pickupAddress: String?, dropoffAddress: String?) {
-       updateStatus(status, isBookingClosed)
-       updateAddresses(pickupAddress, dropoffAddress, isBookingClosed)
+    constructor(context: Context) : super(context) {
+        setUp(context)
     }
 
-    private fun updateAddresses(pickupAddress: String?, dropoffAddress: String?, bookingClosed: Boolean) {
-        if(dropoffAddress.isNullOrBlank() || pickupAddress.isNullOrBlank()){
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        setUp(context)
+    }
+
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
+        setUp(context)
+    }
+
+    private fun setUp(context: Context) {
+        LayoutInflater.from(context).inflate(R.layout.feature_ride_updates, this, true)
+        injectDependencies()
+    }
+
+    private fun injectDependencies() {
+        DaggerRideUpdatesComponent.builder()
+            .mainScreenComponent((context as MainScreenActivity).mainScreenComponent)
+            .rideUpdatesModule(RideUpdatesModule(this))
+            .build()
+            .injectRideUpdatesView(this)
+
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        rideUpdatesPresenter.viewAttached()
+    }
+
+    override fun updateBookingStatus(
+        status: String,
+        isBookingClosed: Boolean,
+        pickupAddress: String?,
+        dropoffAddress: String?
+    ) {
+        updateStatus(status, isBookingClosed)
+        updateAddresses(pickupAddress, dropoffAddress, isBookingClosed)
+    }
+
+    private fun updateAddresses(
+        pickupAddress: String?,
+        dropoffAddress: String?,
+        bookingClosed: Boolean
+    ) {
+        if (dropoffAddress.isNullOrBlank() || pickupAddress.isNullOrBlank()) {
             return
         }
         addressesTextView.isVisible = !bookingClosed
@@ -76,5 +86,5 @@ class RideUpdatesLayout : RelativeLayout, RideUpdatesView {
         statusTextView.text = StringBuilder()
             .append(status).append(" ")
             .append(bookingStatus)
-     }
+    }
 }

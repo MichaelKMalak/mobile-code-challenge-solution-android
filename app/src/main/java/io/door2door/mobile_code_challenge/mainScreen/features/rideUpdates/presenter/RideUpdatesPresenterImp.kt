@@ -38,18 +38,10 @@ class RideUpdatesPresenterImp @Inject constructor(
                         it.pickupAddress,
                         it.dropoffAddress
                     )
-                    //should I add Error handling to the subscriber? https://blog.danlew.net/2014/09/30/grokking-rxjava-part-3/
-                    //convert slow methods to observable? and using it to solve lifecycle problems https://blog.danlew.net/2014/10/08/grokking-rxjava-part-4/
-
                 }, {
                     Log.d(tag, "Error on getting status updates")
                 })
         )
     }
-    //  private fun subscribeToNavBearing(){
-    //disposables.add(mainScreenInteractor.bearing)
-    //   .. {rideUpdatesView.updateBearing(it)}
-    // }
-
 }
 

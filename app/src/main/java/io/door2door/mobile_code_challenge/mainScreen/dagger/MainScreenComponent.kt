@@ -12,11 +12,11 @@ import io.door2door.mobile_code_challenge.network.NetworkModule
 @Component(modules = [MainScreenModule::class, NetworkModule::class])
 interface MainScreenComponent {
 
-  fun injectMainScreenActivity(mainScreenActivity: MainScreenActivity)
+    fun injectMainScreenActivity(mainScreenActivity: MainScreenActivity)
 
-  val mainScreenPresenter: MainScreenPresenter
+    val mainScreenPresenter: MainScreenPresenter
 
-  val mainScreenInteractor: MainScreenInteractor
+    val mainScreenInteractor: MainScreenInteractor
 
-  val resources: Resources
+    val resources: Resources
 }

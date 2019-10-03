@@ -5,9 +5,9 @@ import io.reactivex.Observable
 
 interface BookingsWebSocket {
 
-  fun connectToWebSocket()
+    fun connectToWebSocket()
 
-  fun getStatusUpdates(): Observable<Event>
+    fun getStatusUpdates(): Observable<Event>
 
-  fun getVehicleLocationUpdates(): Observable<Event>
+    fun getVehicleLocationUpdates(): Observable<Event>
 }

@@ -12,12 +12,14 @@ import io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.model.S
 import javax.inject.Inject
 
 class StatusLocationMapper @Inject constructor() : BaseBookingMapper<StatusLocationModel> {
-  override fun mapDataModelToViewModel(dataModel: Event): StatusLocationModel {
-    return when (dataModel) {
-      is BookingOpened -> StatusLocationModel(BOOKING_OPENED,
-          LatLng(dataModel.data.vehicleLocation.lat, dataModel.data.vehicleLocation.lng))
-      is BookingClosed -> StatusLocationModel(BOOKING_CLOSED)
-      else -> StatusLocationModel(CLEAR)
+    override fun mapDataModelToViewModel(dataModel: Event): StatusLocationModel {
+        return when (dataModel) {
+            is BookingOpened -> StatusLocationModel(
+                BOOKING_OPENED,
+                LatLng(dataModel.data.vehicleLocation.lat, dataModel.data.vehicleLocation.lng)
+            )
+            is BookingClosed -> StatusLocationModel(BOOKING_CLOSED)
+            else -> StatusLocationModel(CLEAR)
+        }
     }
-  }
 }

@@ -9,5 +9,5 @@ import io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.view.Ma
 @Component(dependencies = [MainScreenComponent::class], modules = [MapModule::class])
 interface MapComponent {
 
-  fun injectMapView(mapLayout: MapLayout)
+    fun injectMapView(mapLayout: MapLayout)
 }

@@ -10,13 +10,14 @@ import io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.view.R
 @Module
 class RideUpdatesModule(private val rideUpdatesView: RideUpdatesView) {
 
-  @FeatureScope
-  @Provides
-  fun providesRideUpdatesView() = rideUpdatesView
+    @FeatureScope
+    @Provides
+    fun providesRideUpdatesView() = rideUpdatesView
 
-  @FeatureScope
-  @Provides
-  fun providesRideUpdatesPresenter(
-      rideUpdatesPresenter: RideUpdatesPresenterImp): RideUpdatesPresenter =
-      rideUpdatesPresenter
+    @FeatureScope
+    @Provides
+    fun providesRideUpdatesPresenter(
+        rideUpdatesPresenter: RideUpdatesPresenterImp
+    ): RideUpdatesPresenter =
+        rideUpdatesPresenter
 }

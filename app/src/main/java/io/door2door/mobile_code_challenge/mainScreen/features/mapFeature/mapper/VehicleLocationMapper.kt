@@ -9,10 +9,10 @@ import javax.inject.Inject
 
 class VehicleLocationMapper @Inject constructor() : BaseBookingMapper<VehicleLocationModel> {
 
-  override fun mapDataModelToViewModel(dataModel: Event): VehicleLocationModel {
-    val vehicleLocationUpdated = dataModel as VehicleLocationUpdated
-    val currentLat = vehicleLocationUpdated.data.lat
-    val currentLng = vehicleLocationUpdated.data.lng
-    return VehicleLocationModel(LatLng(currentLat, currentLng))
-  }
+    override fun mapDataModelToViewModel(dataModel: Event): VehicleLocationModel {
+        val vehicleLocationUpdated = dataModel as VehicleLocationUpdated
+        val currentLat = vehicleLocationUpdated.data.lat
+        val currentLng = vehicleLocationUpdated.data.lng
+        return VehicleLocationModel(LatLng(currentLat, currentLng))
+    }
 }

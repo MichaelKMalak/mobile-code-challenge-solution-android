@@ -10,5 +10,4 @@ interface MapView {
 
     fun updateVehicleLocation(finalLatLng: LatLng)
 
-    //fun getBearing(): Float?
 }

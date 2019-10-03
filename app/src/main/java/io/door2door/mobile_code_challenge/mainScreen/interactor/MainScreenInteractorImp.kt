@@ -6,24 +6,24 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class MainScreenInteractorImp @Inject constructor(
-    private val bookingsWebSocket: BookingsWebSocket) :
+    private val bookingsWebSocket: BookingsWebSocket
+) :
     MainScreenInteractor {
-    //override var bearing: Float? = null
-
-
     override fun <V> getVehicleLocationUpdates(
-      bookingLocationMapper: BaseBookingMapper<V>): Observable<V> {
-    return bookingsWebSocket.getVehicleLocationUpdates()
-        .map { bookingLocationMapper.mapDataModelToViewModel(it) }
-  }
+        bookingLocationMapper: BaseBookingMapper<V>
+    ): Observable<V> {
+        return bookingsWebSocket.getVehicleLocationUpdates()
+            .map { bookingLocationMapper.mapDataModelToViewModel(it) }
+    }
 
-  override fun <V> getBookingStatusUpdates(
-      bookingStatusMapper: BaseBookingMapper<V>): Observable<V> {
-    return bookingsWebSocket.getStatusUpdates()
-        .map { bookingStatusMapper.mapDataModelToViewModel(it) }
-  }
+    override fun <V> getBookingStatusUpdates(
+        bookingStatusMapper: BaseBookingMapper<V>
+    ): Observable<V> {
+        return bookingsWebSocket.getStatusUpdates()
+            .map { bookingStatusMapper.mapDataModelToViewModel(it) }
+    }
 
-  override fun connectToWebSocket() {
-    bookingsWebSocket.connectToWebSocket()
-  }
+    override fun connectToWebSocket() {
+        bookingsWebSocket.connectToWebSocket()
+    }
 }

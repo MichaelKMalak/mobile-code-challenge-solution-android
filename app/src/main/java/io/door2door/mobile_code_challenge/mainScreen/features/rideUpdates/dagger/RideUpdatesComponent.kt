@@ -9,5 +9,5 @@ import io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.view.R
 @Component(dependencies = [MainScreenComponent::class], modules = [RideUpdatesModule::class])
 interface RideUpdatesComponent {
 
-  fun injectRideUpdatesView(rideUpdatesLayout: RideUpdatesLayout)
+    fun injectRideUpdatesView(rideUpdatesLayout: RideUpdatesLayout)
 }
