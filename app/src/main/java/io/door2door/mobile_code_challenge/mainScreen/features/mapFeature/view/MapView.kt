@@ -8,7 +8,7 @@ interface MapView {
 
   fun clearMap()
 
-  fun updateMapView (finalLatLng: LatLng)
+  fun loadVehicleLocation (finalLatLng: LatLng)
 
   //fun getBearing(): Float?
 }

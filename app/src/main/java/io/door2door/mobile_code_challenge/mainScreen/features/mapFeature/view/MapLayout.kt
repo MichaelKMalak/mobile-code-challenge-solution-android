@@ -3,10 +3,8 @@ package io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.view
 import android.animation.ObjectAnimator
 import android.animation.TypeEvaluator
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.location.Location
 import android.util.AttributeSet
-import android.util.Log
 import android.util.Property
 import android.view.LayoutInflater
 import android.view.animation.LinearInterpolator
@@ -71,11 +69,11 @@ class MapLayout : MapView, RelativeLayout {
     mapView.getMapAsync {
       googleMap = it
       mapPresenter.mapLoaded()
-      obtainVehicleMarker()
+      loadVehicleMarker()
     }
   }
 
-  private fun obtainVehicleMarker() {
+  private fun loadVehicleMarker() {
     vehicleMarker = googleMap?.addMarker(MarkerOptions()
           .position(LatLng(0.0, 0.0))
           .anchor(VEHICLE_MARKER_ANCHOR, VEHICLE_MARKER_ANCHOR))
@@ -86,7 +84,7 @@ class MapLayout : MapView, RelativeLayout {
     googleMap?.clear()
   }
 
-   override fun updateMapView (finalLatLng: LatLng) {
+   override fun loadVehicleLocation (finalLatLng: LatLng) {
      animateMarker(vehicleMarker, finalLatLng)
    }
 
