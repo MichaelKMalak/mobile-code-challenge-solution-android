@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
+import androidx.core.view.isVisible
 import io.door2door.mobile_code_challenge.R
 import io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.dagger.DaggerRideUpdatesComponent
 import io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.dagger.RideUpdatesModule
@@ -52,15 +53,21 @@ class RideUpdatesLayout : RelativeLayout, RideUpdatesView {
     super.onAttachedToWindow()
     rideUpdatesPresenter.viewAttached()
   }
-    override fun updateStatus(status: String, pickupAddress: String?, isBookingClosed: Boolean, dropoffAddress: String?) {
-       val bookingStatus = if (isBookingClosed) "Booking: Closed." else "Booking: Open."
-        val dropAddress = if(dropoffAddress.isNullOrBlank()) "" else "Dropoff Address: $dropoffAddress"
-        val pickAddress = if (pickupAddress.isNullOrBlank()) "" else "Pickup Address: $pickupAddress"
-        textView.text =     """
-        $status
-        $bookingStatus
-        $dropAddress
-        $pickAddress
-    """"
+    override fun updateInfo(status: String, isBookingClosed: Boolean, pickupAddress: String?, dropoffAddress: String?) {
+       updateStatus(status, isBookingClosed)
+       updateAddresses(pickupAddress, dropoffAddress, isBookingClosed)
+    }
+
+    private fun updateAddresses(pickupAddress: String?, dropoffAddress: String?, bookingClosed: Boolean) {
+        if(dropoffAddress.isNullOrBlank() || pickupAddress.isNullOrBlank()){
+            return
+        }
+        addressesTextView.isVisible = !bookingClosed
+        addressesTextView.text = "From $pickupAddress to $dropoffAddress"
+    }
+
+    private fun updateStatus(status: String, bookingClosed: Boolean) {
+        val bookingStatus = if (bookingClosed) " [Booking Closed]" else " [Booking Open]"
+        statusTextView.text = status + bookingStatus
     }
 }

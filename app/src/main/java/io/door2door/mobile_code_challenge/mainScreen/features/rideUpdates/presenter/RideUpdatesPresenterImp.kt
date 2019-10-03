@@ -2,7 +2,6 @@ package io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.prese
 
 import android.util.Log
 import io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.mapper.BookingStatusMapper
-import io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.model.BookingStatusModel
 import io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.view.RideUpdatesView
 import io.door2door.mobile_code_challenge.mainScreen.interactor.MainScreenInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -32,7 +31,7 @@ class RideUpdatesPresenterImp @Inject constructor(
         .observeOn(AndroidSchedulers.mainThread()) //thread subscriber runs on
         .subscribe({
           //todo
-            rideUpdatesView.updateStatus(it.status, it.pickupAddress,it.isBookingClosed, it.dropoffAddress)
+            rideUpdatesView.updateInfo(it.status,it.isBookingClosed,  it.pickupAddress, it.dropoffAddress)
 
             //should I add Error handling to the subscriber? https://blog.danlew.net/2014/09/30/grokking-rxjava-part-3/
             //convert slow methods to observable? and using it to solve lifecycle problems https://blog.danlew.net/2014/10/08/grokking-rxjava-part-4/

@@ -7,12 +7,28 @@
     tools:parentTag="android.widget.RelativeLayout"
     >
 
-
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/statusTextView"
         style="@style/AppTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#B4FFFFFF"
-        android:inputType="textMultiLine" />
+        android:layout_marginStart="@dimen/booking_general_margin"
+        android:layout_marginTop="@dimen/booking_general_margin"
+        android:layout_marginEnd="@dimen/booking_general_margin"
+        android:layout_marginBottom="@dimen/booking_general_margin"
+        android:background="@color/support_grey"
+        android:padding="@dimen/one_column" />
+
+    <TextView
+        android:id="@+id/addressesTextView"
+        style="@style/AppTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/booking_general_margin"
+        android:layout_marginTop="@dimen/booking_general_margin"
+        android:layout_marginEnd="@dimen/booking_general_margin"
+        android:layout_marginBottom="@dimen/booking_general_margin"
+        android:background="@color/support_grey"
+        android:padding="@dimen/one_column" />
 </merge>
