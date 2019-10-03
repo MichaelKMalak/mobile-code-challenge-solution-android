@@ -3,7 +3,7 @@
 This is a solution to the mobile code challenge by 'allygator shuttle', door2door's mobility service that operates in Berlin, and provides a mobile app that allows users to 
 book pooled rides and track their progress.
 
-The application is basically a simulation (visualization) on google map view for data sent from [door2door's websocket](https://d2d-frontend-code-challenge.herokuapp.com/docs)).
+The application is basically a simulation (visualization) on google map view for data sent from [door2door's websocket](https://d2d-frontend-code-challenge.herokuapp.com/docs).
 
 door2door's team implemented the basic architecture for this code and based on this framework I implemented a solution that satisfies 
 the [requirements](https://github.com/door2door-io/d2d-code-challenges/tree/master/mobile):
