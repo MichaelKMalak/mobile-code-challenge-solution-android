@@ -16,7 +16,7 @@ the [requirements](https://github.com/door2door-io/d2d-code-challenges/tree/mast
 1. In the presentation layer, MVP model is used. 
 2. Dagger 2.0 is used for Dependency Injection through out the code. 
 3. The archeticture model is very clean. 
-	1. `Network` is in a separate module and communicates with the `Interactor`. It also instentiates data classes like `Event`
+	1. `Network` is in a separate module and communicates with the `Interactor`. It also instantiates data classes like `Event`
 	2. The `Interactor` communicated with `presenters` in each of the main and the two features
 	3. Each one of the two features is in MVP model so the view and the model communicate through the presenters
 	4. Each feature's `mapper` inherits `data` interface and overides its `mapDataModelToViewModel` in different classes
