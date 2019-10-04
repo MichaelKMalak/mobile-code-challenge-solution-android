@@ -3,9 +3,10 @@ ext {
     androidSupportVersion = '1.1.0'
     ankoAppcompatV7CommonsVersion = '0.10.4'
     kotlinStdLibVersion = kotlinVersion
+    kotlinReflectVersion = kotlinStdLibVersion
     rxKotlinVersion = '2.3.0'
     rxAndroidVersion = '2.1.0'
-    daggerVersion = '2.17'
+    daggerVersion = '2.24'
     playServicesVersion = '17.0.0'
     okHttpVersion = '4.2.0'
     okHttpVersion = '3.11.0'
@@ -23,6 +24,7 @@ ext {
                        androidCoreKtx        : "androidx.core:core-ktx:$androidSupportVersion",
                        ankoAppCompatV7Commons: "org.jetbrains.anko:anko-appcompat-v7-commons:$ankoAppcompatV7CommonsVersion",
                        kotlinStdLib          : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinStdLibVersion",
+                       kotlinReflect         : "org.jetbrains.kotlin:kotlin-reflect:$kotlinReflectVersion",
                        rxKotlin              : "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion",
                        rxAndroid             : "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
                        dagger                : "com.google.dagger:dagger:$daggerVersion",

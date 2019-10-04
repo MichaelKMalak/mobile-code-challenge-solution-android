@@ -25,6 +25,5 @@ class MainScreenInteractorImp @Inject constructor(
 
   override fun connectToWebSocket() {
     bookingsWebSocket.connectToWebSocket()
-    //testing comment
   }
 }

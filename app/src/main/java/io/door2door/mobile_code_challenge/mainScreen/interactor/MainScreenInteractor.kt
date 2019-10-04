@@ -10,9 +10,9 @@ interface MainScreenInteractor {
 
     fun connectToWebSocket()
 
-  fun <V> getVehicleLocationUpdates(
+    fun <V> getVehicleLocationUpdates(
       bookingLocationMapper: BaseBookingMapper<V>): Observable<V>
 
-  fun <V> getBookingStatusUpdates(
+    fun <V> getBookingStatusUpdates(
       bookingStatusMapper: BaseBookingMapper<V>): Observable<V>
 }

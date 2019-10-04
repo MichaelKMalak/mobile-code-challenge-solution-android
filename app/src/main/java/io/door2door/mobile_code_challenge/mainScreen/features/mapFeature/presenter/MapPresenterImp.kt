@@ -1,7 +1,7 @@
 package io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.presenter
 
 import android.util.Log
-import io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.mapper.StatusLocationMapper
+import io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.mapper.StopLocationsMapper
 import io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.mapper.VehicleLocationMapper
 import io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.view.MapView
 import io.door2door.mobile_code_challenge.mainScreen.interactor.MainScreenInteractor
@@ -14,7 +14,7 @@ class MapPresenterImp @Inject constructor(
     private val mapView: MapView,
     private val mainScreenInteractor: MainScreenInteractor,
     private val vehicleLocationMapper: VehicleLocationMapper,
-    private val statusLocationMapper: StatusLocationMapper
+    private val stopLocationsMapper: StopLocationsMapper
 ) : MapPresenter {
 
     private val disposables = CompositeDisposable()
@@ -31,7 +31,7 @@ class MapPresenterImp @Inject constructor(
 
     override fun mapLoaded() {
         this.subscribeToVehicleLocationUpdates()
-        this.subscribeToStatusLocationUpdates()
+        this.subscribeToStopLocationsUpdates()
     }
 
     private fun subscribeToVehicleLocationUpdates() {
@@ -46,11 +46,15 @@ class MapPresenterImp @Inject constructor(
             })
         )
     }
-    private fun subscribeToStatusLocationUpdates() {
-        disposables.add(mainScreenInteractor.getBookingStatusUpdates(statusLocationMapper)
+    private fun subscribeToStopLocationsUpdates() {
+        disposables.add(mainScreenInteractor.getBookingStatusUpdates(stopLocationsMapper)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                if (it.status.isNotEmpty()) {
+                    Log.i(tag, "PickUp: ${it.pickupLocation.toString()}")
+                    Log.i(tag, "firstLoc: ${it.intermediateStopLocations?.get(0)?.toString()}")
+                }
                 //it.
                // mapView.updateVehicleLocation(it.latLng)
                 //  mainScreenInteractor.bearing = mapView.getBearing()

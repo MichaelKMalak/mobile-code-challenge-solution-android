@@ -34,6 +34,7 @@ dependencies {
     implementation appDependencies.androidAppCompat
     implementation appDependencies.androidCoreKtx
     implementation appDependencies.kotlinStdLib
+    implementation appDependencies.kotlinReflect
     implementation appDependencies.ankoAppCompatV7Commons
     implementation appDependencies.rxKotlin
     implementation appDependencies.rxAndroid
