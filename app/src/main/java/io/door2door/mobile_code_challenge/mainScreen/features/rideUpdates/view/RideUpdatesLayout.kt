@@ -81,8 +81,8 @@ class RideUpdatesLayout : RelativeLayout, RideUpdatesView {
 
     private fun updateStatus(status: String, bookingClosed: Boolean) {
         statusTextView.isVisible = true
-        val bookingStatus = if (bookingClosed) resources.getString(R.string.booking_open)
-        else resources.getString(R.string.booking_closed)
+        val bookingStatus = if (bookingClosed) resources.getString(R.string.booking_closed)
+        else resources.getString(R.string.booking_open)
         statusTextView.text = StringBuilder()
             .append(status).append(" ")
             .append(bookingStatus)
