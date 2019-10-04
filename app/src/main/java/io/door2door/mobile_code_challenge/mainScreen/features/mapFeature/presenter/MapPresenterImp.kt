@@ -51,7 +51,7 @@ class MapPresenterImp @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                if (it.status.isNotEmpty() && !it.intermediateStopLocations.isNullOrEmpty()) {
+                if (it.status.isNotEmpty()) {
                     mapView.loadLocationMarkers(
                         it.pickupLocation, it.dropOffLocation,
                         it.intermediateStopLocations
