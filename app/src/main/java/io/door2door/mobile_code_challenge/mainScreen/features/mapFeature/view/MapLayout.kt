@@ -145,6 +145,12 @@ class MapLayout : MapView, RelativeLayout {
         location.longitude = longitude
         return location
     }
+
+    private fun loadLocationMarkers (pickupLocation: LatLng?,
+                                     dropOffLocation: LatLng?,
+                                     intermediateStopLocations: List<LatLng>){
+        //I will need to delete from the locations.. so how is that?
+    }
     // override fun getBearing(): Float? = vehicleMarker?.rotation?.plus(180f)
 }
 

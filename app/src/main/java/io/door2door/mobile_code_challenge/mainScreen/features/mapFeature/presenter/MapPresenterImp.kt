@@ -31,12 +31,8 @@ class MapPresenterImp @Inject constructor(
 
     override fun mapLoaded() {
         this.subscribeToVehicleLocationUpdates()
-        //subscribeToStatusLocationUpdates()
+        this.subscribeToStatusLocationUpdates()
     }
-
-    //private fun subscribeToStatusLocationUpdates()
-    //getVehicleLocationUpdates from mainScreenInteractor
-    //getBookingStatusUpdates from mainScreenInteractor
 
     private fun subscribeToVehicleLocationUpdates() {
         disposables.add(mainScreenInteractor.getVehicleLocationUpdates(vehicleLocationMapper)
@@ -44,6 +40,19 @@ class MapPresenterImp @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 mapView.updateVehicleLocation(it.latLng)
+                //  mainScreenInteractor.bearing = mapView.getBearing()
+            }, {
+                Log.d(tag, "Error on getting vehicle location updates")
+            })
+        )
+    }
+    private fun subscribeToStatusLocationUpdates() {
+        disposables.add(mainScreenInteractor.getBookingStatusUpdates(statusLocationMapper)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                //it.
+               // mapView.updateVehicleLocation(it.latLng)
                 //  mainScreenInteractor.bearing = mapView.getBearing()
             }, {
                 Log.d(tag, "Error on getting vehicle location updates")
