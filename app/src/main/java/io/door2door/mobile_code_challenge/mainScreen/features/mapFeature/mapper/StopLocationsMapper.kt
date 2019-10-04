@@ -8,25 +8,31 @@ import javax.inject.Inject
 class StopLocationsMapper @Inject constructor() : BaseBookingMapper<StopLocationsModel> {
     override fun mapDataModelToViewModel(dataModel: Event): StopLocationsModel {
         return when (dataModel) {
-            is BookingOpened -> {
-                val pickupLatLng =
-                    LatLng(dataModel.data.pickupLocation.lat, dataModel.data.pickupLocation.lng)
-                val dropOffLatLng =
-                    LatLng(dataModel.data.dropoffLocation.lat, dataModel.data.dropoffLocation.lng)
-                val intermediateStopsLatLng =
-                    dataModel.data.intermediateStopLocations.map { LatLng(it.lat, it.lng) }
-                StopLocationsModel(
-                    BOOKING_OPENED,
-                    pickupLatLng,
-                    dropOffLatLng,
-                    intermediateStopsLatLng
-                )
-            }
-            is IntermediateStopLocationsChanged -> {
-                val intermediateStopsLatLng = dataModel.data.map { LatLng(it.lat, it.lng) }
-                StopLocationsModel(STOPS_UPDATED, null, null, intermediateStopsLatLng)
-            }
-            else -> StopLocationsModel(CLEAR, null, null, null)
+            is BookingOpened -> getInitialLocations(dataModel)
+            is IntermediateStopLocationsChanged -> getUpdatedStopLocations(dataModel)
+            else -> getNoLocations()
         }
     }
+
+    private fun getInitialLocations(dataModel: BookingOpened): StopLocationsModel {
+        return StopLocationsModel(
+            status = BOOKING_OPENED,
+            pickupLocation = LatLng(dataModel.data.pickupLocation.lat, dataModel.data.pickupLocation.lng),
+            dropOffLocation = LatLng(dataModel.data.dropoffLocation.lat, dataModel.data.dropoffLocation.lng),
+            intermediateStopLocations = dataModel.data.intermediateStopLocations.map { LatLng(it.lat, it.lng) }
+        )
+    }
+
+    private fun getUpdatedStopLocations(dataModel: IntermediateStopLocationsChanged): StopLocationsModel {
+        return StopLocationsModel(
+            status = STOPS_UPDATED,
+            pickupLocation = null,
+            dropOffLocation = null,
+            intermediateStopLocations = dataModel.data.map { LatLng(it.lat, it.lng) })
+    }
+
+    private fun getNoLocations() =
+        StopLocationsModel(status = CLEAR, pickupLocation = null,
+            dropOffLocation = null, intermediateStopLocations = null)
+
 }
