@@ -37,7 +37,6 @@ class MapLayout : MapView, RelativeLayout {
     private var markerRotationAnimator: ObjectAnimator? = null
     private var vehicleMarker: Marker? = null
 
-
     constructor(context: Context) : super(context) {
         setUp(context)
     }
@@ -70,15 +69,14 @@ class MapLayout : MapView, RelativeLayout {
     override fun obtainGoogleMap() {
         mapView.getMapAsync {
             googleMap = it
-            loadVehicleMarker()
             mapPresenter.mapLoaded()
         }
     }
 
-    private fun loadVehicleMarker() {
+    private fun loadVehicleMarker(finalLatLng: LatLng) {
         vehicleMarker = googleMap?.addMarker(
             MarkerOptions()
-                .position(LatLng(0.0, 0.0))
+                .position(finalLatLng)
                 .anchor(VEHICLE_MARKER_ANCHOR, VEHICLE_MARKER_ANCHOR)
         )
         vehicleMarker!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.marker_vehicle))
@@ -89,6 +87,7 @@ class MapLayout : MapView, RelativeLayout {
     }
 
     override fun updateVehicleLocation(finalLatLng: LatLng) {
+        if (vehicleMarker == null) loadVehicleMarker(finalLatLng)
         animateMarker(vehicleMarker, finalLatLng)
         moveCamera(finalLatLng)
     }
@@ -146,10 +145,37 @@ class MapLayout : MapView, RelativeLayout {
         return location
     }
 
-    private fun loadLocationMarkers (pickupLocation: LatLng?,
-                                     dropOffLocation: LatLng?,
-                                     intermediateStopLocations: List<LatLng>){
-        //I will need to delete from the locations.. so how is that?
+    override fun loadLocationMarkers (pickupLatLng: LatLng?,
+                                      dropOffLatLng: LatLng?,
+                                      intermediateStopLatLng: List<LatLng>){
+        when {
+            pickupLatLng != null && dropOffLatLng!= null -> {
+                loadStartEndMarkers(pickupLatLng, dropOffLatLng)
+            }
+        }
+        loadStopsMarkers(intermediateStopLatLng)
+    }
+
+    private fun loadStartEndMarkers(pickupLatLng: LatLng,
+                                    dropOffLatLng: LatLng) {
+
+        googleMap?.addMarker(MarkerOptions()
+            .position(pickupLatLng)
+            .title("Pickup Location")
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
+
+
+        googleMap?.addMarker(MarkerOptions()
+            .position(dropOffLatLng)
+            .title("Drop-off Location")
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
+    }
+    private fun loadStopsMarkers(intermediateStopLatLng: List<LatLng>) {
+        intermediateStopLatLng.forEach {
+            googleMap?.addMarker(MarkerOptions()
+                .position(it)
+            )
+        }
     }
     // override fun getBearing(): Float? = vehicleMarker?.rotation?.plus(180f)
 }

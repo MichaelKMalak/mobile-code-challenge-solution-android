@@ -9,4 +9,5 @@ interface MapPresenter {
   fun viewDetached()
 
   fun mapLoaded()
+
 }

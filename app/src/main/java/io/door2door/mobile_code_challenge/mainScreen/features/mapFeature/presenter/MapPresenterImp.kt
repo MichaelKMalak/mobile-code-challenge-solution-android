@@ -51,13 +51,11 @@ class MapPresenterImp @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                if (it.status.isNotEmpty()) {
-                    Log.i(tag, "PickUp: ${it.pickupLocation.toString()}")
-                    Log.i(tag, "firstLoc: ${it.intermediateStopLocations?.get(0)?.toString()}")
-                }
-                //it.
-               // mapView.updateVehicleLocation(it.latLng)
-                //  mainScreenInteractor.bearing = mapView.getBearing()
+                if (it.status.isNotEmpty() && !it.intermediateStopLocations.isNullOrEmpty()) {
+                    mapView.loadLocationMarkers(
+                        it.pickupLocation, it.dropOffLocation,
+                        it.intermediateStopLocations
+                    )}
             }, {
                 Log.d(tag, "Error on getting vehicle location updates")
             })

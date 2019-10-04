@@ -10,5 +10,8 @@ interface MapView {
 
     fun updateVehicleLocation(finalLatLng: LatLng)
 
+    fun loadLocationMarkers (pickupLatLng: LatLng?,
+                             dropOffLatLng: LatLng?,
+                             intermediateStopLatLng: List<LatLng>)
     //fun getBearing(): Float?
 }
