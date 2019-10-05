@@ -74,7 +74,7 @@ class MapLayout : MapView, RelativeLayout {
         }
     }
 
-    private fun loadVehicleMarker(finalLatLng: LatLng) {
+    private fun showVehicleMarker(finalLatLng: LatLng) {
         vehicleMarker = googleMap?.addMarker(
             MarkerOptions()
                 .position(finalLatLng)
@@ -87,8 +87,8 @@ class MapLayout : MapView, RelativeLayout {
         googleMap?.clear()
     }
 
-    override fun updateVehicleLocation(finalLatLng: LatLng) {
-        if (vehicleMarker == null) loadVehicleMarker(finalLatLng)
+    override fun showVehicleLocation(finalLatLng: LatLng) {
+        if (vehicleMarker == null) showVehicleMarker(finalLatLng)
         animateMarker(vehicleMarker, finalLatLng)
         moveCamera(finalLatLng)
     }
@@ -146,40 +146,35 @@ class MapLayout : MapView, RelativeLayout {
         return location
     }
 
-    override fun loadLocationMarkers (pickupLatLng: LatLng?,
-                                      dropOffLatLng: LatLng?,
-                                      intermediateStopLatLng: List<LatLng>){
-        when {
-            pickupLatLng != null && dropOffLatLng!= null -> {
-                loadStartEndMarkers(pickupLatLng, dropOffLatLng)
-            }
-        }
-        loadStopsMarkers(intermediateStopLatLng)
-        Log.d(MapLayout::class.simpleName, "Added Intermediate Stops!")
+    override fun showStopsLocation (pickupLatLng: LatLng?,
+                                    dropOffLatLng: LatLng?,
+                                    intermediateStopLatLng: List<LatLng>){
+        showStartEndMarkers(pickupLatLng, dropOffLatLng)
+        showStopsMarkers(intermediateStopLatLng)
+        Log.d(MapLayout::class.simpleName, "Added Intermediate Stops! $intermediateStopLatLng")
     }
 
-    private fun loadStartEndMarkers(pickupLatLng: LatLng,
-                                    dropOffLatLng: LatLng) {
-
+    private fun showStartEndMarkers(pickupLatLng: LatLng?,
+                                    dropOffLatLng: LatLng?) {
+        if (pickupLatLng == null || dropOffLatLng == null) return
         googleMap?.addMarker(MarkerOptions()
             .position(pickupLatLng)
             .title("Pickup Location")
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
 
 
         googleMap?.addMarker(MarkerOptions()
             .position(dropOffLatLng)
             .title("Drop-off Location")
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
     }
-    private fun loadStopsMarkers(intermediateStopLatLng: List<LatLng>) {
+    private fun showStopsMarkers(intermediateStopLatLng: List<LatLng>) {
         intermediateStopLatLng.forEach {
             googleMap?.addMarker(MarkerOptions()
                 .position(it)
             )
         }
     }
-    // override fun getBearing(): Float? = vehicleMarker?.rotation?.plus(180f)
 }
 
 

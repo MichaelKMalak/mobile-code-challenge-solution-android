@@ -5,3 +5,4 @@ import com.google.android.gms.maps.model.LatLng
 data class StopLocationsModel(val pickupLocation: LatLng? = null,
                               val dropOffLocation: LatLng? = null,
                               val intermediateStopLocations: List<LatLng>)
+
