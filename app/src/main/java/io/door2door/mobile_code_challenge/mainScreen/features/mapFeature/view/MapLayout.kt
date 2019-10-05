@@ -159,20 +159,18 @@ class MapLayout : MapView, RelativeLayout {
         if (pickupLatLng == null || dropOffLatLng == null) return
         googleMap?.addMarker(MarkerOptions()
             .position(pickupLatLng)
-            .title("Pickup Location")
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+            )!!.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
 
 
         googleMap?.addMarker(MarkerOptions()
             .position(dropOffLatLng)
-            .title("Drop-off Location")
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+        )!!.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
     }
     private fun showStopsMarkers(intermediateStopLatLng: List<LatLng>) {
         intermediateStopLatLng.forEach {
             googleMap?.addMarker(MarkerOptions()
                 .position(it)
-            )
+            )!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.stop_location))
         }
     }
 }
