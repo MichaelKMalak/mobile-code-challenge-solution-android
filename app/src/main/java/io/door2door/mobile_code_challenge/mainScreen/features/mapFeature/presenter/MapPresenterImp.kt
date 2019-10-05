@@ -51,6 +51,7 @@ class MapPresenterImp @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                Log.d(tag, "Stop Location Updates is called")
                 if (it.status.isNotEmpty()) {
                     mapView.loadLocationMarkers(
                         it.pickupLocation, it.dropOffLocation,

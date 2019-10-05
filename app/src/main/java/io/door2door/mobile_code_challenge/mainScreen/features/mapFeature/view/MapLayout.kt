@@ -5,6 +5,7 @@ import android.animation.TypeEvaluator
 import android.content.Context
 import android.location.Location
 import android.util.AttributeSet
+import android.util.Log
 import android.util.Property
 import android.view.LayoutInflater
 import android.view.animation.LinearInterpolator
@@ -154,6 +155,7 @@ class MapLayout : MapView, RelativeLayout {
             }
         }
         loadStopsMarkers(intermediateStopLatLng)
+        Log.d(MapLayout::class.simpleName, "Added Intermediate Stops!")
     }
 
     private fun loadStartEndMarkers(pickupLatLng: LatLng,

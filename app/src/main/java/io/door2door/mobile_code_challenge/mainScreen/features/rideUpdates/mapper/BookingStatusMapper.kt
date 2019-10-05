@@ -12,7 +12,7 @@ class BookingStatusMapper @Inject constructor(
   override fun mapDataModelToViewModel(dataModel: Event): BookingStatusModel {
     return when (dataModel) {
       is BookingOpened -> getBookingOpenedModel(dataModel)
-      is StatusUpdated -> getStatusUpdatedModel()
+      is StatusUpdated, is IntermediateStopLocationsChanged -> getStatusUpdatedModel()
       is BookingClosed -> getBookingClosedModel()
       else -> getNoBookingModel()
     }

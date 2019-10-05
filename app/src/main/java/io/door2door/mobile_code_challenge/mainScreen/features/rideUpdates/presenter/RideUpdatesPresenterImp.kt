@@ -38,6 +38,7 @@ class RideUpdatesPresenterImp @Inject constructor(
                         it.pickupAddress,
                         it.dropoffAddress
                     )
+                    Log.d(tag, it.status)
                     //should I add Error handling to the subscriber? https://blog.danlew.net/2014/09/30/grokking-rxjava-part-3/
                     //convert slow methods to observable? and using it to solve lifecycle problems https://blog.danlew.net/2014/10/08/grokking-rxjava-part-4/
 
@@ -50,6 +51,5 @@ class RideUpdatesPresenterImp @Inject constructor(
     //disposables.add(mainScreenInteractor.bearing)
     //   .. {rideUpdatesView.updateBearing(it)}
     // }
-
 }
 

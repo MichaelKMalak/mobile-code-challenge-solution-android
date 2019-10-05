@@ -36,8 +36,8 @@ class BookingsWebSocketImp @Inject constructor(
       super.onMessage(webSocket, text)
       moshi.adapter(Event::class.java).fromJson(text)?.let {
         when (it) {
-          is BookingOpened, is BookingClosed, is StatusUpdated -> statusUpdateSubject.onNext(it)
           is VehicleLocationUpdated -> vehicleLocationUpdateSubject.onNext(it)
+          else -> statusUpdateSubject.onNext(it)
         }
       }
     }
