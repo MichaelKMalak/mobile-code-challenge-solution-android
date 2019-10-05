@@ -16,7 +16,6 @@ class StopLocationsMapper @Inject constructor() : BaseBookingMapper<StopLocation
 
     private fun getInitialLocations(dataModel: BookingOpened): StopLocationsModel {
         return StopLocationsModel(
-            status = STOPS_UPDATED,
             pickupLocation = LatLng(dataModel.data.pickupLocation.lat, dataModel.data.pickupLocation.lng),
             dropOffLocation = LatLng(dataModel.data.dropoffLocation.lat, dataModel.data.dropoffLocation.lng),
             intermediateStopLocations = dataModel.data.intermediateStopLocations.map { LatLng(it.lat, it.lng) }
@@ -25,12 +24,11 @@ class StopLocationsMapper @Inject constructor() : BaseBookingMapper<StopLocation
 
     private fun getUpdatedStopLocations(dataModel: IntermediateStopLocationsChanged): StopLocationsModel {
         return StopLocationsModel(
-            status = STOPS_UPDATED,
             pickupLocation = null,
             dropOffLocation = null,
             intermediateStopLocations = dataModel.data.map { LatLng(it.lat, it.lng) })
     }
 
     private fun getNoLocations() =
-        StopLocationsModel(status = CLEAR, intermediateStopLocations = listOf(LatLng(0.0, 0.0)))
+        StopLocationsModel(intermediateStopLocations = listOf(LatLng(0.0, 0.0)))
 }
