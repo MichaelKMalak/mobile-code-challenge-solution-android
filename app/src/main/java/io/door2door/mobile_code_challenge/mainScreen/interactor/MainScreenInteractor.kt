@@ -15,4 +15,7 @@ interface MainScreenInteractor {
 
     fun <V> getBookingStatusUpdates(
       bookingStatusMapper: BaseBookingMapper<V>): Observable<V>
+
+    fun <V> getStopLocationsUpdates(
+        stopLocationsMapper: BaseBookingMapper<V>): Observable<V>
 }

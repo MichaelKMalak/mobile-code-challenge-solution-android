@@ -10,4 +10,6 @@ interface BookingsWebSocket {
   fun getStatusUpdates(): Observable<Event>
 
   fun getVehicleLocationUpdates(): Observable<Event>
+
+  fun getStopLocationUpdates(): Observable<Event>
 }

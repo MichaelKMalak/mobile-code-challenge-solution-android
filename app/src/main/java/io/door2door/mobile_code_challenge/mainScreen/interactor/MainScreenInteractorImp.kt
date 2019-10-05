@@ -23,6 +23,12 @@ class MainScreenInteractorImp @Inject constructor(
         .map { bookingStatusMapper.mapDataModelToViewModel(it) }
   }
 
+    override fun <V> getStopLocationsUpdates(
+        stopLocationsMapper: BaseBookingMapper<V>): Observable<V> {
+        return bookingsWebSocket.getStopLocationUpdates()
+            .map { stopLocationsMapper.mapDataModelToViewModel(it) }
+    }
+
   override fun connectToWebSocket() {
     bookingsWebSocket.connectToWebSocket()
   }

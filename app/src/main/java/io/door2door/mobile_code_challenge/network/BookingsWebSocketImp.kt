@@ -17,6 +17,7 @@ class BookingsWebSocketImp @Inject constructor(
 
   private val statusUpdateSubject: Subject<Event> = BehaviorSubject.create()
   private val vehicleLocationUpdateSubject: Subject<Event> = BehaviorSubject.create()
+  private val stopLocationUpdateSubject: Subject<Event> = BehaviorSubject.create()
   private val webSocketUrl = "wss://d2d-frontend-code-challenge.herokuapp.com"
 
   private val bookingWebSocketListener = BookingWebSocketListener(moshi)
@@ -30,14 +31,20 @@ class BookingsWebSocketImp @Inject constructor(
 
   override fun getVehicleLocationUpdates(): Observable<Event> = vehicleLocationUpdateSubject.hide()
 
+  override fun getStopLocationUpdates(): Observable<Event> = stopLocationUpdateSubject.hide()
+
   inner class BookingWebSocketListener(private val moshi: Moshi) : WebSocketListener() {
 
     override fun onMessage(webSocket: WebSocket, text: String) {
       super.onMessage(webSocket, text)
       moshi.adapter(Event::class.java).fromJson(text)?.let {
         when (it) {
+          is BookingOpened -> {
+            statusUpdateSubject.onNext(it)
+            stopLocationUpdateSubject.onNext(it)}
+          is BookingClosed, is StatusUpdated  -> statusUpdateSubject.onNext(it)
           is VehicleLocationUpdated -> vehicleLocationUpdateSubject.onNext(it)
-          else -> statusUpdateSubject.onNext(it)
+          is IntermediateStopLocationsChanged -> stopLocationUpdateSubject.onNext(it)
         }
       }
     }

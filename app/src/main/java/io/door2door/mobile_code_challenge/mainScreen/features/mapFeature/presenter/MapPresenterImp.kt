@@ -47,12 +47,12 @@ class MapPresenterImp @Inject constructor(
         )
     }
     private fun subscribeToStopLocationsUpdates() {
-        disposables.add(mainScreenInteractor.getBookingStatusUpdates(stopLocationsMapper)
+        disposables.add(mainScreenInteractor.getStopLocationsUpdates(stopLocationsMapper)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 Log.d(tag, "Stop Location Updates is called")
-                if (it.status.isNotEmpty()) {
+                if (!it.intermediateStopLocations.isNullOrEmpty()) {
                     mapView.loadLocationMarkers(
                         it.pickupLocation, it.dropOffLocation,
                         it.intermediateStopLocations
