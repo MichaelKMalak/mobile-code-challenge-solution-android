@@ -32,12 +32,13 @@ class RideUpdatesPresenterImp @Inject constructor(
                 .subscribeOn(Schedulers.io()) //thread to run on
                 .observeOn(AndroidSchedulers.mainThread()) //thread subscriber runs on
                 .subscribe({
-                    rideUpdatesView.showBookingStatus(
-                        it.status,
-                        it.isBookingClosed,
-                        it.pickupAddress,
-                        it.dropoffAddress
-                    )
+
+                    if(!it.dropOffAddress.isNullOrBlank() && !it.pickupAddress.isNullOrBlank()){
+                        rideUpdatesView.updateAddresses(it.pickupAddress, it.dropOffAddress)
+                    }
+
+                    rideUpdatesView.updateStatus(it.status, it.isBookingClosed)
+
                     Log.d(tag, it.status)
                 }, {
                     Log.d(tag, "Error on getting status updates")

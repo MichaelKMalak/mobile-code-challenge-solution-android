@@ -8,9 +8,10 @@ interface MapView {
 
     fun clearMap()
 
-    fun showVehicleLocation(finalLatLng: LatLng)
+    fun updateVehicleLocation(finalLatLng: LatLng)
 
-    fun showStopsLocation (pickupLatLng: LatLng?,
-                           dropOffLatLng: LatLng?,
-                           intermediateStopLatLng: List<LatLng>)
+    fun showStartEndMarkers(pickupLatLng: LatLng,
+                            dropOffLatLng: LatLng)
+
+    fun updateStopsMarkers(intermediateStopLatLng: List<LatLng>)
 }

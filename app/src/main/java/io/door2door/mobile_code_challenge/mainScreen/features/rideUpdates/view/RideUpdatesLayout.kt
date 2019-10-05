@@ -51,16 +51,8 @@ class RideUpdatesLayout : RelativeLayout, RideUpdatesView {
     super.onAttachedToWindow()
     rideUpdatesPresenter.viewAttached()
   }
-    override fun showBookingStatus(status: String, isBookingClosed: Boolean, pickupAddress: String?, dropOffAddress: String?) {
-       showStatus(status, isBookingClosed)
-       showAddresses(pickupAddress, dropOffAddress, isBookingClosed)
-    }
-
-    private fun showAddresses(pickupAddress: String?, dropOffAddress: String?, bookingClosed: Boolean) {
-        if(dropOffAddress.isNullOrBlank() || pickupAddress.isNullOrBlank()){
-            return
-        }
-        addressesTextView.isVisible = !bookingClosed
+    override fun updateAddresses(pickupAddress: String, dropOffAddress: String) {
+        addressesTextView.isVisible = true
         addressesTextView.text = StringBuilder()
             .append(resources.getString(R.string.address_from)).append(" ")
             .append(pickupAddress).append(" ")
@@ -68,7 +60,7 @@ class RideUpdatesLayout : RelativeLayout, RideUpdatesView {
             .append(dropOffAddress)
     }
 
-    private fun showStatus(status: String, bookingClosed: Boolean) {
+    override fun updateStatus(status: String, bookingClosed: Boolean) {
         statusTextView.isVisible = true
         val bookingStatus = if (bookingClosed) resources.getString(R.string.booking_closed)
         else resources.getString(R.string.booking_open)

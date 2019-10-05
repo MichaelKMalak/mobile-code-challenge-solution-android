@@ -39,7 +39,7 @@ class MapPresenterImp @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                mapView.showVehicleLocation(it.latLng)
+                mapView.updateVehicleLocation(it.latLng)
             }, {
                 Log.d(tag, "Error on getting vehicle location updates")
             })
@@ -51,12 +51,16 @@ class MapPresenterImp @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                if (it.pickupLatLng != null && it.dropOffLatLng != null) {
+                    mapView.showStartEndMarkers(
+                        it.pickupLatLng,
+                        it.dropOffLatLng
+                    )
+                }
+                if (!it.intermediateStopLatLng.isNullOrEmpty()) {
+                    mapView.updateStopsMarkers(it.intermediateStopLatLng)
+                }
                 Log.d(tag, "Stop Location Updates is called")
-                if (!it.intermediateStopLocations.isNullOrEmpty()) {
-                    mapView.showStopsLocation(
-                        it.pickupLocation, it.dropOffLocation,
-                        it.intermediateStopLocations
-                    )}
             }, {
                 Log.d(tag, "Error on getting vehicle location updates")
             })

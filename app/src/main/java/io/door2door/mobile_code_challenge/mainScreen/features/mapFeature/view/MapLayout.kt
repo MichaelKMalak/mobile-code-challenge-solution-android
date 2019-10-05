@@ -74,6 +74,17 @@ class MapLayout : MapView, RelativeLayout {
         }
     }
 
+
+    override fun clearMap() {
+        googleMap?.clear()
+    }
+
+    override fun updateVehicleLocation(finalLatLng: LatLng) {
+        if (vehicleMarker == null) showVehicleMarker(finalLatLng)
+        animateMarker(vehicleMarker, finalLatLng)
+        moveCamera(finalLatLng)
+    }
+
     private fun showVehicleMarker(finalLatLng: LatLng) {
         vehicleMarker = googleMap?.addMarker(
             MarkerOptions()
@@ -81,16 +92,6 @@ class MapLayout : MapView, RelativeLayout {
                 .anchor(VEHICLE_MARKER_ANCHOR, VEHICLE_MARKER_ANCHOR)
         )
         vehicleMarker!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.marker_vehicle))
-    }
-
-    override fun clearMap() {
-        googleMap?.clear()
-    }
-
-    override fun showVehicleLocation(finalLatLng: LatLng) {
-        if (vehicleMarker == null) showVehicleMarker(finalLatLng)
-        animateMarker(vehicleMarker, finalLatLng)
-        moveCamera(finalLatLng)
     }
 
     private fun moveCamera(finalLatLng: LatLng) {
@@ -146,17 +147,9 @@ class MapLayout : MapView, RelativeLayout {
         return location
     }
 
-    override fun showStopsLocation (pickupLatLng: LatLng?,
-                                    dropOffLatLng: LatLng?,
-                                    intermediateStopLatLng: List<LatLng>){
-        showStartEndMarkers(pickupLatLng, dropOffLatLng)
-        showStopsMarkers(intermediateStopLatLng)
-        Log.d(MapLayout::class.simpleName, "Added Intermediate Stops! $intermediateStopLatLng")
-    }
 
-    private fun showStartEndMarkers(pickupLatLng: LatLng?,
-                                    dropOffLatLng: LatLng?) {
-        if (pickupLatLng == null || dropOffLatLng == null) return
+    override fun showStartEndMarkers(pickupLatLng: LatLng,
+                                    dropOffLatLng: LatLng) {
         googleMap?.addMarker(MarkerOptions()
             .position(pickupLatLng)
             )!!.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
@@ -166,12 +159,13 @@ class MapLayout : MapView, RelativeLayout {
             .position(dropOffLatLng)
         )!!.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
     }
-    private fun showStopsMarkers(intermediateStopLatLng: List<LatLng>) {
+    override fun updateStopsMarkers(intermediateStopLatLng: List<LatLng>) {
         intermediateStopLatLng.forEach {
             googleMap?.addMarker(MarkerOptions()
                 .position(it)
             )!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.stop_location))
         }
+        Log.d(MapLayout::class.simpleName, "Added Intermediate Stops! $intermediateStopLatLng")
     }
 }
 
