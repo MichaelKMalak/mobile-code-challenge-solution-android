@@ -33,5 +33,4 @@ class StopLocationsMapper @Inject constructor() : BaseBookingMapper<StopLocation
 
     private fun getNoLocations() =
         StopLocationsModel(status = CLEAR, intermediateStopLocations = listOf(LatLng(0.0, 0.0)))
-
 }
