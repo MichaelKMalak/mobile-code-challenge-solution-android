@@ -1,8 +1,11 @@
 package io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.mapper
 
 import com.google.android.gms.maps.model.LatLng
-import io.door2door.mobile_code_challenge.data.events.*
-import io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.model.*
+import io.door2door.mobile_code_challenge.data.events.BaseBookingMapper
+import io.door2door.mobile_code_challenge.data.events.BookingOpened
+import io.door2door.mobile_code_challenge.data.events.Event
+import io.door2door.mobile_code_challenge.data.events.IntermediateStopLocationsChanged
+import io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.model.StopLocationsModel
 import javax.inject.Inject
 
 class StopLocationsMapper @Inject constructor() : BaseBookingMapper<StopLocationsModel> {
@@ -17,7 +20,10 @@ class StopLocationsMapper @Inject constructor() : BaseBookingMapper<StopLocation
     private fun getInitialLocations(dataModel: BookingOpened): StopLocationsModel {
         return StopLocationsModel(
             pickupLatLng = LatLng(dataModel.data.pickupLocation.lat, dataModel.data.pickupLocation.lng),
-            dropOffLatLng = LatLng(dataModel.data.dropOffLocation.lat, dataModel.data.dropOffLocation.lng),
+            dropOffLatLng = LatLng(
+                dataModel.data.dropoffLocation.lat,
+                dataModel.data.dropoffLocation.lng
+            ),
             intermediateStopLatLng = dataModel.data.intermediateStopLocations.map { LatLng(it.lat, it.lng) }
         )
     }

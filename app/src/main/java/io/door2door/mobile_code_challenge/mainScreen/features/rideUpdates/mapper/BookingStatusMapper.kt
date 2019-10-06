@@ -21,7 +21,8 @@ class BookingStatusMapper @Inject constructor(
   private fun getBookingOpenedModel(bookingOpened: BookingOpened) =
       BookingStatusModel(status = resources.getString(R.string.waiting_for_pickup),
           pickupAddress = bookingOpened.data.pickupLocation.address,
-          dropOffAddress = bookingOpened.data.dropOffLocation.address)
+          dropOffAddress = bookingOpened.data.dropoffLocation.address
+      )
 
   private fun getStatusUpdatedModel() =
       BookingStatusModel(status = resources.getString(R.string.in_vehicle))
