@@ -24,12 +24,28 @@ the [requirements](https://github.com/door2door-io/d2d-code-challenges/tree/mast
 6. RxKotlin and RxJava were used. Reactive programming is implemented for a more efficient use of resources setting the `Event` as the observables so that the observers (subscribers) only work when notified. 
 
 ## What is new? 
+### Overview
+* Once the application opens it connects to the WebSocket and graps the data which will:
+1. Intialize the vehicle location.
+2. Shows the pickup, drop-off, and intermediate stops markers.
+3. Shows the status on the screen.
+4. Shows the pickup and drop-off addresses on the screen.
 
-1. Added a stopLocationUpdateSubject 
+* With every "vehicleLocationUpdated" event:
+The vehicle marker will be animated
+
+* With every "intermediateStopLocationsChanged" event:
+The stops markers will be drawn (on top of each other)
+
+* With every "statusUpdated" and "bookingClosed" event:
+The status and the booking status will be updated on the screen.
+
+### Details
+* Added a stopLocationUpdateSubject 
 	1. In the Network package in BookingWebSocketImp, the subject listens to `BookingOpened` and `IntermediateStopLocationsChanged` events when `onMessage()` is called.
 	2. In MainScreenInteractor added `getStopLocationsUpdates()`
 
-2. In `..features.mapFeature`
+* In `..features.mapFeature`
 	1. In `.presenter`: 
 		1.Added `subscribeToVehicleLocationUpdates()` function implementation. It's called when the `mapLoaded()` and it `updateVehicleLocation` in MapView 
 		2.Added `subscribeToStopLocationsUpdates()` function implementation. It's called when the `mapLoaded()` and it `showStartEndMarkers` as well as `updateStopsMarkers` in MapView
@@ -40,26 +56,31 @@ the [requirements](https://github.com/door2door-io/d2d-code-challenges/tree/mast
 		2. Added `showStartEndMarkers(LatLng,LatLng)` and `updateStopsMarkers(intermediateStopLatLng: List<LatLng>)`
 		3. Function `updateVehicleLocation()` is called when the `presenter` calls `obtainGoogleMap()`.
 
-3. In `..features.rideUpdates`
+* In `..features.rideUpdates`
 	1. In `.presenter`: 
 		Added a call to `updateBookingStatus` in view
 	2. In `.view`: 
 		1. Added `updateAddresses` and `updateStatus` that takes many strings from the presenter (source: the network and the websocket) and update textViews in rideUpdatesLayout.
 
-4. In `..res/layout/feature_ride_updates`
+* In `..res/layout/feature_ride_updates`
 	1. Added two text views: `addressesTextView` with alignParentBottom and `statusTextView` at the top of the screen.
 	2. Made use of the supported textStyles and added a backround tint for readability.
 
-5. Designed simple drawables on illustrator and used them to draw the markers on the map.
+* Designed simple drawables on illustrator and used them to draw the markers on the map.
 
-## What is missing?
-1. Unit testing for both  `RideUpdatesPresenterImp` and `MapPresenterImp`.
-2. A refresh button to refresh the connection with the web socket and handeling websocket's failure.
-3. Adding a release Google Map API_key for releasing the application.
-4. Checking the Wifi connection and requesting it.
+## Issues
+1. When the internet connection is out for a bit while the application is running, it doesn't notify the user.
+2. If the WebSocket was not working or the internet connection was lost, the application shows an empty map without notifying the user.
+3. When the ride ends, the markers and the vehicle remain visible on the screen.
+4. When the user zooms in with elevation, the vehicle marker rotation is not right.
 
 ## Notes
 1. I think the navigation bearing is already implemented by the rotation of the vehicle in `animateMarker`.
+2. There is no need for a release Google API key.
+
+## What is missing?
+1. Unit testing.
+2. Handeling websocket's failure for a better UX.
 
 ## How to use?
 1. Import the project using Android studio. 
