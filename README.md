@@ -90,4 +90,4 @@ The status and the booking status will be updated on the screen.
 3. Google's API_key is set open to be used. However, if it was expired, kindly follow the instructions to create a Google Maps API key and paste it in the aforementioned xml file.
 
 ## Screenshot
-![](https://raw.githubusercontent.com/MichaelKMalak/mobile-code-challenge-solution-android/extras/img/Screenshot_2.png)
+
