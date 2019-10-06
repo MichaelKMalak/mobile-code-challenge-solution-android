@@ -2,6 +2,7 @@ package io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.prese
 
 import android.util.Log
 import io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.mapper.BookingStatusMapper
+import io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.mapper.StopAddressMapper
 import io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.view.RideUpdatesView
 import io.door2door.mobile_code_challenge.mainScreen.interactor.MainScreenInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -12,7 +13,8 @@ import javax.inject.Inject
 class RideUpdatesPresenterImp @Inject constructor(
     private val rideUpdatesView: RideUpdatesView,
     private val mainScreenInteractor: MainScreenInteractor,
-    private val bookingStatusMapper: BookingStatusMapper
+    private val bookingStatusMapper: BookingStatusMapper,
+    private val stopAddressMapper: StopAddressMapper
 ) : RideUpdatesPresenter {
 
     private val disposables = CompositeDisposable()
@@ -20,6 +22,7 @@ class RideUpdatesPresenterImp @Inject constructor(
 
     override fun viewAttached() {
         subscribeToBookingStatusUpdates()
+        subscribeToStopLocationsUpdates()
     }
 
     override fun viewDetached() {
@@ -33,17 +36,29 @@ class RideUpdatesPresenterImp @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread()) //thread subscriber runs on
                 .subscribe({
 
-                    if(!it.dropOffAddress.isNullOrBlank() && !it.pickupAddress.isNullOrBlank()){
-                        rideUpdatesView.updateAddresses(it.pickupAddress, it.dropOffAddress)
-                    }
+                    if (!it.dropOffAddress.isNullOrBlank() && !it.pickupAddress.isNullOrBlank())
+                        rideUpdatesView.updateStartEndAddresses(it.pickupAddress, it.dropOffAddress)
 
                     rideUpdatesView.updateStatus(it.status, it.isBookingClosed)
-
-                    Log.d(tag, it.status)
+                    rideUpdatesView.toggleNextStopAddressVisibility(it.status)
                 }, {
                     Log.d(tag, "Error on getting status updates")
                 })
         )
     }
+
+    private fun subscribeToStopLocationsUpdates() {
+        disposables.add(
+            mainScreenInteractor.getStopLocationsUpdates(stopAddressMapper)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    rideUpdatesView.updateNextStopAddress(it.nextIntermediateStopAddress)
+                }, {
+                    Log.d(tag, "Error on getting next Stop updates")
+                })
+        )
+    }
+
 }
 

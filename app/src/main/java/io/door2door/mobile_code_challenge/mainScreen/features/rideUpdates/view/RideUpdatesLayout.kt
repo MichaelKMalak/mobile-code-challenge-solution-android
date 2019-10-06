@@ -51,7 +51,8 @@ class RideUpdatesLayout : RelativeLayout, RideUpdatesView {
     super.onAttachedToWindow()
     rideUpdatesPresenter.viewAttached()
   }
-    override fun updateAddresses(pickupAddress: String, dropOffAddress: String) {
+
+    override fun updateStartEndAddresses(pickupAddress: String, dropOffAddress: String) {
         addressesTextView.isVisible = true
         addressesTextView.text = StringBuilder()
             .append(resources.getString(R.string.address_from)).append(" ")
@@ -67,5 +68,18 @@ class RideUpdatesLayout : RelativeLayout, RideUpdatesView {
         statusTextView.text = StringBuilder()
             .append(status).append(" ")
             .append(bookingStatus)
-     }
+    }
+
+    override fun updateNextStopAddress(nextStopAddress: String) {
+        headingToTextView.text = StringBuilder()
+            .append(resources.getString(R.string.heading_to)).append(" ")
+            .append(nextStopAddress)
+    }
+
+    override fun toggleNextStopAddressVisibility(status: String) {
+        if (status == resources.getString(R.string.in_vehicle))
+            headingToTextView.isVisible = true
+        if (status == resources.getString(R.string.ride_finished))
+            headingToTextView.isVisible = false
+    }
 }

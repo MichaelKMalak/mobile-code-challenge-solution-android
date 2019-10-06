@@ -8,4 +8,5 @@
   <string name="address_to">to</string>
   <string name="booking_closed"> [Booking Closed]</string>
   <string name="booking_open"> [Booking Open]</string>
+    <string name="heading_to">Heading to:</string>
 </resources>

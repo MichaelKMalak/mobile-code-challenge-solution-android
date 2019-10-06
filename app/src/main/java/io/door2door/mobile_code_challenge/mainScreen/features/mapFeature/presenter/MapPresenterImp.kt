@@ -60,7 +60,6 @@ class MapPresenterImp @Inject constructor(
                 if (!it.intermediateStopLatLng.isNullOrEmpty()) {
                     mapView.updateStopsMarkers(it.intermediateStopLatLng)
                 }
-                Log.d(tag, "Stop Location Updates is called")
             }, {
                 Log.d(tag, "Error on getting vehicle location updates")
             })
