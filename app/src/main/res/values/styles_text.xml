@@ -1,31 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="text_regular_bold">
-    <item name="android:textColor">@color/support_dark</item>
-    <item name="android:textSize">@dimen/text_regular</item>
-    <item name="android:textStyle">bold</item>
-  </style>
-
-  <style name="text_regular">
-    <item name="android:textColor">@color/support_dark</item>
-    <item name="android:textSize">@dimen/text_regular</item>
-  </style>
-
-  <style name="text_small">
-    <item name="android:textColor">@color/support_dark</item>
-    <item name="android:textSize">@dimen/text_small</item>
-  </style>
-
-  <style name="text_small_bold_grey">
-    <item name="android:textColor">@color/support_grey</item>
-    <item name="android:textSize">@dimen/text_small</item>
-    <item name="android:textStyle">bold</item>
-  </style>
-
-  <style name="text_small_grey">
-    <item name="android:textColor">@color/support_grey</item>
-    <item name="android:textSize">@dimen/text_small</item>
-  </style>
-
 </resources>

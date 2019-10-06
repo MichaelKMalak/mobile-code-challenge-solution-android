@@ -39,7 +39,7 @@ class MapPresenterImp @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                mapView.updateVehicleLocation(it.latLng)
+                mapView.updateVehicleMarker(it.latLng)
             }, {
                 Log.d(tag, "Error on getting vehicle location updates")
             })

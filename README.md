@@ -2,31 +2,31 @@
 
 This is a solution to the mobile code challenge by 'allygator shuttle', door2door's mobility service that operates in Berlin, and provides a mobile app that allows users to book pooled rides and track their progress.
 
-The application is basically a simulation (visualization) on google map view for data sent from [door2door's websocket](https://d2d-frontend-code-challenge.herokuapp.com/docs).
+The application is basically a simulation (visualization) on google map view for data sent from [door2door's WebSocket](https://d2d-frontend-code-challenge.herokuapp.com/docs).
 
 door2door's team implemented the basic architecture for this code and based on this framework I implemented a solution that satisfies 
 the [requirements](https://github.com/door2door-io/d2d-code-challenges/tree/master/mobile):
  
 1. shows the user the live location of their assigned vehicle on a map
 2. shows the ride's current status (waiting, in the vehicle, dropped off) in a UI component
-3. shows the ride's pickup and dropoff addresses in a UI component
+3. shows the ride's pickup and drop-off addresses in a UI component
 
 ## About the code
 1. In the presentation layer, MVP model is used. 
 2. Dagger 2.0 is used for Dependency Injection through out the code. 
-3. The archeticture model is very clean. 
+3. The architecture model is very clean. 
 	1. `Network` is in a separate module and communicates with the `Interactor`. It also instantiates data classes like `Event`
 	2. The `Interactor` communicated with `presenters` in each of the main and the two features
 	3. Each one of the two features is in MVP model so the view and the model communicate through the presenters
-	4. Each feature's `mapper` inherits `data` interface and overides its `mapDataModelToViewModel` in different classes
-4. HTTPOK is used to handle communication with the websocket.
+	4. Each feature's `mapper` inherits `data` interface and overrides its `mapDataModelToViewModel` in different classes
+4.OkHttp is used to handle communication with the WebSocket.
 5. moshi is used to easily map the JSON objects with data.
 6. RxKotlin and RxJava were used. Reactive programming is implemented for a more efficient use of resources setting the `Event` as the observables so that the observers (subscribers) only work when notified. 
 
 ## What is new? 
 ### Overview
-* Once the application opens it connects to the WebSocket and graps the data which will:
-1. Intialize the vehicle location.
+* Once the application opens it connects to the WebSocket and grabs the data which will:
+1. Initialize the vehicle location.
 2. Shows the pickup, drop-off, and intermediate stops markers.
 3. Shows the status on the screen.
 4. Shows the pickup and drop-off addresses on the screen.
@@ -60,16 +60,16 @@ The status and the booking status will be updated on the screen.
 	1. In `.presenter`: 
 		Added a call to `updateBookingStatus` in view
 	2. In `.view`: 
-		1. Added `updateAddresses` and `updateStatus` that takes many strings from the presenter (source: the network and the websocket) and update textViews in rideUpdatesLayout.
+		1. Added `updateAddresses` and `updateStatus` that takes many strings from the presenter (source: the network and the webSocket) and update textViews in rideUpdatesLayout.
 
 * In `..res/layout/feature_ride_updates`
 	1. Added two text views: `addressesTextView` with alignParentBottom and `statusTextView` at the top of the screen.
-	2. Made use of the supported textStyles and added a backround tint for readability.
+	2. Made use of the supported textStyles and added a background tint for readability.
 
 * Designed simple drawables on illustrator and used them to draw the markers on the map.
 
 ## Issues
-1. When the internet connection is out for a bit while the application is running, it doesn't notify the user.
+1. When the internet connection is out for a bit while the application is running, it does not notify the user.
 2. If the WebSocket was not working or the internet connection was lost, the application shows an empty map without notifying the user.
 3. When the ride ends, the markers and the vehicle remain visible on the screen.
 4. When the user zooms in with elevation, the vehicle marker rotation is not right.
@@ -80,9 +80,9 @@ The status and the booking status will be updated on the screen.
 
 ## What is missing?
 1. Unit testing.
-2. Handeling websocket's failure for a better UX.
+2. Handling webSocket's failure for a better UX.
 3. Displaying next stop address on screen.
-4. Making the markers clickble to display addresses.
+4. Making the markers clickable to display addresses.
 
 ## How to use?
 1. Import the project using Android studio. 

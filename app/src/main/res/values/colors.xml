@@ -3,8 +3,5 @@
   <color name="colorPrimary">#008577</color>
   <color name="colorPrimaryDark">#00574B</color>
   <color name="colorAccent">#D81B60</color>
-  <color name="support_dark">#4b545a</color>
-  <color name="support_grey">#979797</color>
-  <color name="divider">#E7E7E7</color>
-  <color name="background_primary">#ffffff</color>
+    <color name="background_primary">#ffffff</color>
 </resources>

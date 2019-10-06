@@ -26,7 +26,6 @@ import javax.inject.Inject
 
 private const val MARKER_ANIMATION_DURATION = 1000L
 private const val VEHICLE_MARKER_ANCHOR = 0.5f
-private const val MARKER_ELEVATION = 3f
 
 class MapLayout : MapView, RelativeLayout {
 
@@ -79,7 +78,7 @@ class MapLayout : MapView, RelativeLayout {
         googleMap?.clear()
     }
 
-    override fun updateVehicleLocation(finalLatLng: LatLng) {
+    override fun updateVehicleMarker(finalLatLng: LatLng) {
         if (vehicleMarker == null) initializeVehicleMarker(finalLatLng)
 
         animateMarker(vehicleMarker, finalLatLng)
