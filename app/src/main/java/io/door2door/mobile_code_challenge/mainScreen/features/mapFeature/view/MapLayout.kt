@@ -80,8 +80,13 @@ class MapLayout : MapView, RelativeLayout {
     }
 
     override fun updateVehicleLocation(finalLatLng: LatLng) {
-        if (vehicleMarker == null) showVehicleMarker(finalLatLng)
+        if (vehicleMarker == null) initializeVehicleMarker(finalLatLng)
+
         animateMarker(vehicleMarker, finalLatLng)
+    }
+
+    private fun initializeVehicleMarker(finalLatLng: LatLng) {
+        showVehicleMarker(finalLatLng)
         moveCamera(finalLatLng)
     }
 
@@ -152,12 +157,11 @@ class MapLayout : MapView, RelativeLayout {
                                     dropOffLatLng: LatLng) {
         googleMap?.addMarker(MarkerOptions()
             .position(pickupLatLng)
-            )!!.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-
+            )!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pickup_location))
 
         googleMap?.addMarker(MarkerOptions()
             .position(dropOffLatLng)
-        )!!.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+        )!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.drop_location))
     }
     override fun updateStopsMarkers(intermediateStopLatLng: List<LatLng>) {
         intermediateStopLatLng.forEach {
