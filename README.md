@@ -1,7 +1,6 @@
 # Mobile Code Challenge Android Solution
 
-This is a solution to the mobile code challenge by 'allygator shuttle', door2door's mobility service that operates in Berlin, and provides a mobile app that allows users to 
-book pooled rides and track their progress.
+This is a solution to the mobile code challenge by 'allygator shuttle', door2door's mobility service that operates in Berlin, and provides a mobile app that allows users to book pooled rides and track their progress.
 
 The application is basically a simulation (visualization) on google map view for data sent from [door2door's websocket](https://d2d-frontend-code-challenge.herokuapp.com/docs).
 
@@ -24,36 +23,66 @@ the [requirements](https://github.com/door2door-io/d2d-code-challenges/tree/mast
 5. moshi is used to easily map the JSON objects with data.
 6. RxKotlin and RxJava were used. Reactive programming is implemented for a more efficient use of resources setting the `Event` as the observables so that the observers (subscribers) only work when notified. 
 
-## What is new? (In the main branch)
+## What is new? 
+### Overview
+* Once the application opens it connects to the WebSocket and graps the data which will:
+1. Intialize the vehicle location.
+2. Shows the pickup, drop-off, and intermediate stops markers.
+3. Shows the status on the screen.
+4. Shows the pickup and drop-off addresses on the screen.
 
-1. In `..features.mapFeature`
+* With every "vehicleLocationUpdated" event:
+The vehicle marker will be animated
+
+* With every "intermediateStopLocationsChanged" event:
+The stops markers will be drawn (on top of each other)
+
+* With every "statusUpdated" and "bookingClosed" event:
+The status and the booking status will be updated on the screen.
+
+### Details
+* Added a stopLocationUpdateSubject 
+	1. In the Network package in BookingWebSocketImp, the subject listens to `BookingOpened` and `IntermediateStopLocationsChanged` events when `onMessage()` is called.
+	2. In MainScreenInteractor added `getStopLocationsUpdates()`
+
+* In `..features.mapFeature`
 	1. In `.presenter`: 
-		Added `subscribeToVehicleLocationUpdates()` function implementation. It's called when the `mapLoaded()`
+		1.Added `subscribeToVehicleLocationUpdates()` function implementation. It's called when the `mapLoaded()` and it `updateVehicleLocation` in MapView 
+		2.Added `subscribeToStopLocationsUpdates()` function implementation. It's called when the `mapLoaded()` and it `showStartEndMarkers` as well as `updateStopsMarkers` in MapView
 	2. In `.view`: 
-		1. Added `updateVehicleLocation(LatLng)` that is the subscriber of `subscribeToVehicleLocationUpdates()`
-		2. It updates `animateMarker(LatLng)` and `moveCamera(LatLng)` which shows the vehicle and move the map with it.
-		3. Function `loadVehicleMarker()` is called when the `presenter` calls `obtainGoogleMap()`.
+		1. Added `updateVehicleMarker(LatLng)` 
+			1. Its first call will `initializeVehicleMarker(LatLng)` which will `showVehicleMarker(LatLng)` and `moveCamera(LatLng)` 
+			2. It normally calls `animateMarker(LatLng)`
+		2. Added `showStartEndMarkers(LatLng,LatLng)` and `updateStopsMarkers(intermediateStopLatLng: List<LatLng>)`
+		3. Function `updateVehicleLocation()` is called when the `presenter` calls `obtainGoogleMap()`.
 
-2. In `..features.rideUpdates`
+* In `..features.rideUpdates`
 	1. In `.presenter`: 
 		Added a call to `updateBookingStatus` in view
 	2. In `.view`: 
-		1. Added `updateBookingStatus` that takes many strings from the presenter (source: the network and the websocket)
-		2. This function only `updatesAddresses` and `updatesStatus`
+		1. Added `updateAddresses` and `updateStatus` that takes many strings from the presenter (source: the network and the websocket) and update textViews in rideUpdatesLayout.
 
-3. In `..res/layout/feature_ride_updates`
+* In `..res/layout/feature_ride_updates`
 	1. Added two text views: `addressesTextView` with alignParentBottom and `statusTextView` at the top of the screen.
 	2. Made use of the supported textStyles and added a backround tint for readability.
 
-## What is missing?
-I am creating a branch for this repository in order to attempt to solve some of these missing features.
-1. Unit testing for both  `RideUpdatesPresenterImp` and `MapPresenterImp`.
-2. A refresh button to refresh the connection with the web socket and handeling websocket's failure
-3. Visualising intermediate stops that the vehicle will make between the pickup and dropoff locations. 
-4. Displaying the navigation bearing angle of the vehicle to show which direction the vehicle is currently driving in.
-5. Adding a release Google Map API_key for releasing the application.
-6. Checking the Wifi connection and requesting it.
+* Designed simple drawables on illustrator and used them to draw the markers on the map.
 
+## Issues
+1. When the internet connection is out for a bit while the application is running, it doesn't notify the user.
+2. If the WebSocket was not working or the internet connection was lost, the application shows an empty map without notifying the user.
+3. When the ride ends, the markers and the vehicle remain visible on the screen.
+4. When the user zooms in with elevation, the vehicle marker rotation is not right.
+
+## Notes
+1. I think the navigation bearing is already implemented by the rotation of the vehicle in `animateMarker`.
+2. There is no need for a release Google API key.
+
+## What is missing?
+1. Unit testing.
+2. Handeling websocket's failure for a better UX.
+3. Displaying next stop address on screen.
+4. Making the markers clickble to display addresses.
 
 ## How to use?
 1. Import the project using Android studio. 
@@ -61,4 +90,4 @@ I am creating a branch for this repository in order to attempt to solve some of 
 3. Google's API_key is set open to be used. However, if it was expired, kindly follow the instructions to create a Google Maps API key and paste it in the aforementioned xml file.
 
 ## Screenshot
-![](https://raw.githubusercontent.com/MichaelKMalak/mobile-code-challenge-solution-android/master/img/Snapshot_2.PNG)
+
