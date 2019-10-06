@@ -81,6 +81,8 @@ The status and the booking status will be updated on the screen.
 ## What is missing?
 1. Unit testing.
 2. Handeling websocket's failure for a better UX.
+3. Displaying next stop address on screen.
+4. Making the markers clickble to display addresses.
 
 ## How to use?
 1. Import the project using Android studio. 
