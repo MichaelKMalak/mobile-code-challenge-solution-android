@@ -60,8 +60,8 @@ class MapPresenterImp @Inject constructor(
 
                 mapView.updateStopsMarkers(it.intermediateStopLatLng)
 
-                if (it.intermediateStopLatLng.isEmpty())
-                    mapView.clearAllMarkers()
+                //  if (it.intermediateStopLatLng.isEmpty())
+                //     mapView.clearAllMarkers()
 
             }, {
                 Log.d(tag, "Error on getting vehicle location updates")

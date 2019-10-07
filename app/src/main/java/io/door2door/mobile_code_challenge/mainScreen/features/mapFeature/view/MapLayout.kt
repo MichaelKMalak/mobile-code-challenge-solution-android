@@ -194,5 +194,3 @@ class MapLayout : MapView, RelativeLayout {
         intermediateStopsMarkers.clear()
     }
 }
-
-
