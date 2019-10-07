@@ -103,20 +103,41 @@
             android:padding="12dp"
             android:text="@string/waiting_for_pickup"
             android:textAlignment="center"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/greenBackgroundBox" />
 
         <TextView
-            android:id="@+id/bookingStatusText"
+            android:id="@+id/bookingIsOpenText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="12dp"
             android:background="@drawable/rectangle_rounded_corners"
+            android:backgroundTint="@color/colorAccent"
             android:fontFamily="@font/roboto"
             android:padding="12dp"
             android:text="@string/booking_open"
             android:textAlignment="center"
+            android:textColor="@color/background_primary"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/greenBackgroundBox" />
+
+        <TextView
+            android:id="@+id/bookingIsClosedText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/rectangle_rounded_corners"
+            android:backgroundTint="@color/common_google_signin_btn_text_dark_focused"
+            android:fontFamily="@font/roboto"
+            android:padding="12dp"
+            android:text="@string/booking_closed"
+            android:textAlignment="center"
+            android:textColor="@color/background_primary"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/greenBackgroundBox" />
 
@@ -131,9 +152,11 @@
             android:fontFamily="@font/roboto"
             android:padding="12dp"
             android:textAlignment="center"
+            android:textStyle="bold"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </merge>

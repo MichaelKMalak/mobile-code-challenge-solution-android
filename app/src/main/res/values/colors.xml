@@ -7,5 +7,5 @@
   <color name="support_light">#E7E7E7</color>
   <color name="support_grey">#979797</color>
   <color name="divider">#E7E7E7</color>
-  <color name="background_primary">#ffffff</color>
+    <color name="background_primary">#FFFFFF</color>
 </resources>

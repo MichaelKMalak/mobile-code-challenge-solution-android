@@ -58,8 +58,8 @@ class RideUpdatesLayout : RelativeLayout, RideUpdatesView {
     }
 
     override fun updateStatus(status: String, bookingClosed: Boolean) {
-        bookingStatusText.text = if (bookingClosed) resources.getString(R.string.booking_closed)
-        else resources.getString(R.string.booking_open)
+        bookingIsClosedText.isVisible = bookingClosed
+        bookingIsOpenText.isVisible = !bookingClosed
         rideStatusText.text = status
     }
 
