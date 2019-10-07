@@ -5,7 +5,6 @@ import android.animation.TypeEvaluator
 import android.content.Context
 import android.location.Location
 import android.util.AttributeSet
-import android.util.Log
 import android.util.Property
 import android.view.LayoutInflater
 import android.view.animation.LinearInterpolator
@@ -26,6 +25,9 @@ import javax.inject.Inject
 
 private const val MARKER_ANIMATION_DURATION = 1000L
 private const val VEHICLE_MARKER_ANCHOR = 0.5f
+private const val pickup_drawable = R.drawable.pickup_location
+private const val dropoff_drawable = R.drawable.drop_location
+private const val stops_drawable = R.drawable.stop_location
 
 class MapLayout : MapView, RelativeLayout {
 
@@ -36,6 +38,9 @@ class MapLayout : MapView, RelativeLayout {
     private var markerPositionAnimator: ObjectAnimator? = null
     private var markerRotationAnimator: ObjectAnimator? = null
     private var vehicleMarker: Marker? = null
+    private var pickupMarker: Marker? = null
+    private var dropOffMarker: Marker? = null
+
 
     constructor(context: Context) : super(context) {
         setUp(context)
@@ -154,21 +159,26 @@ class MapLayout : MapView, RelativeLayout {
 
     override fun showStartEndMarkers(pickupLatLng: LatLng,
                                     dropOffLatLng: LatLng) {
-        googleMap?.addMarker(MarkerOptions()
-            .position(pickupLatLng)
-            )!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.pickup_location))
+        pickupMarker?.remove()
+        dropOffMarker?.remove()
 
-        googleMap?.addMarker(MarkerOptions()
-            .position(dropOffLatLng)
-        )!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.drop_location))
+        pickupMarker = showMarkerWithDrawable(pickupLatLng, pickup_drawable)
+        dropOffMarker = showMarkerWithDrawable(dropOffLatLng, dropoff_drawable)
     }
+
     override fun updateStopsMarkers(intermediateStopLatLng: List<LatLng>) {
         intermediateStopLatLng.forEach {
-            googleMap?.addMarker(MarkerOptions()
-                .position(it)
-            )!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.stop_location))
+            showMarkerWithDrawable(it, stops_drawable)
         }
-        Log.d(MapLayout::class.simpleName, "Added Intermediate Stops! $intermediateStopLatLng")
+    }
+
+    private fun showMarkerWithDrawable(latLng: LatLng, drawable: Int): Marker? {
+        val marker: Marker? = googleMap?.addMarker(
+            MarkerOptions()
+                .position(latLng)
+        )
+        marker!!.setIcon(BitmapDescriptorFactory.fromResource(drawable))
+        return marker
     }
 }
 
