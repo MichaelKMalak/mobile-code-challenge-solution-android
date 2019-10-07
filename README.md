@@ -1,7 +1,15 @@
 # Mobile Code Challenge Android Solution
 
-This is a solution to the mobile code challenge by 'allygator shuttle', door2door's mobility service that operates in Berlin, and provides a mobile app that allows users to book pooled rides and track their progress.
+This is a solution to the mobile code challenge by 'allygator shuttle', door2door's mobility service that operates in Berlin, and provides a mobile app that allows users to book pooled rides and track their progress. 
 
+## Repository branches
+* The solution was forked after 3-4 days of starting the challange in a branch named: `main` in case it was needed by the examiners.
+
+* Regarding `extras` and `extras-2`, the latter is the most recent. The biggest difference between those two is the layout changes and saving the map markers to be removed when the booking is closed. 
+
+* Regarding `extras-after-deadline`,  I am experimenting for a bit.
+
+## About this project
 The application is basically a simulation (visualization) on google map view for data sent from [door2door's WebSocket](https://d2d-frontend-code-challenge.herokuapp.com/docs).
 
 door2door's team implemented the basic architecture for this code and based on this framework I implemented a solution that satisfies 
@@ -11,7 +19,7 @@ the [requirements](https://github.com/door2door-io/d2d-code-challenges/tree/mast
 2. shows the ride's current status (waiting, in the vehicle, dropped off) in a UI component
 3. shows the ride's pickup and drop-off addresses in a UI component
 
-## About the code
+## More details on the project
 1. In the presentation layer, MVP model is used. 
 2. Dagger 2.0 is used for Dependency Injection through out the code. 
 3. The architecture model is very clean. 
@@ -23,8 +31,7 @@ the [requirements](https://github.com/door2door-io/d2d-code-challenges/tree/mast
 5. moshi is used to easily map the JSON objects with data.
 6. RxKotlin and RxJava were used. Reactive programming is implemented for a more efficient use of resources setting the `Event` as the observables so that the observers (subscribers) only work when notified. 
 
-## What is new? 
-### Overview
+## What did I implement? 
 1. Once the application opens it connects to the WebSocket and grabs the data which will:
 	* Initialize the vehicle location.
 	* Shows the pickup, drop-off, and intermediate stops markers.
@@ -47,23 +54,22 @@ The program checks if status of booking is closed to clear all markers on screen
 2. When the user zooms in with elevation, the vehicle marker rotation is not right.
 
 ## Notes
-1. I think the navigation bearing is already implemented by the rotation of the vehicle in `animateMarker`.
-2. There is no need for a release Google API key.
-3. Making the markers clickable to display addresses is redundant data that is not necessary since I display what is the next stop location on the screen already.
-4. I designed the drawables on illustrator for a vectorized code. For some reason, google map needed the markers to be an image, so I had to convert the vector images (SVG) to PNG.
+1. There is no need for a release Google API key.
+2. I thought about making the markers clickable to display addresses but I ended up not doing it as I thought it's redundant data that is not necessary since the next stop location is displayed on the screen.
+3. I designed the drawables on illustrator for a vectorized code. However, I discovered that google map needs the markers to be an image/bitmap, so I had to convert the vector images .SVG to .PNG.
 
 ## Assumptions
 1. The webSocket will always send an event when the vehicle reaches an intermediate stop to update the "Heading to" text view. 
 2. `Event.data` from the webSocket may be null but `Event.data[0].Address` will never be null but could be empty.
 
 ## What is missing?
-1. Unit testing.
+1. Unit testing. 
 2. Handling webSocket's failure for a better UX.
 
 ## How to use?
 1. Import the project using Android studio. 
 2. Go to `google_maps_api.xml` 
-3. Google's API_key is set open to be used. However, if it was expired, kindly follow the instructions to create a Google Maps API key and paste it in the aforementioned xml file.
+3. Google's API_key is set (open) to be used. However, if it was expired, kindly follow the instructions commented in the file to create a Google Maps API key and paste it in the aforementioned xml file.
 
 
 ## Screenshot
