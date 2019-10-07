@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!-- Texts -->
-
+  <dimen name="text_small">15sp</dimen>
+  <dimen name="text_regular">18sp</dimen>
     <!-- General -->
-
+  <dimen name="default_elevation">@dimen/half_column</dimen>
+  <dimen name="divider_size">1dp</dimen>
     <!-- Riding experience -->
-    <dimen name="booking_general_margin">18dp</dimen>
+  <dimen name="booking_general_margin">18dp</dimen>
+  <dimen name="booking_top_details_layout_height">80dp</dimen>
+  <dimen name="booking_bottom_details_layout_height">164dp</dimen>
+
 
   <!-- Grid Layout Values -->
   <dimen name="half_column" tools:ignore="UnusedResources">4dp</dimen>

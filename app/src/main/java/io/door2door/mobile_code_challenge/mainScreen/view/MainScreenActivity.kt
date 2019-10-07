@@ -1,14 +1,15 @@
 package io.door2door.mobile_code_challenge.mainScreen.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import io.door2door.mobile_code_challenge.R
 import io.door2door.mobile_code_challenge.mainScreen.dagger.DaggerMainScreenComponent
 import io.door2door.mobile_code_challenge.mainScreen.dagger.MainScreenComponent
 import io.door2door.mobile_code_challenge.mainScreen.dagger.MainScreenModule
 import io.door2door.mobile_code_challenge.mainScreen.presenter.MainScreenPresenter
 import kotlinx.android.synthetic.main.feature_map.*
 import javax.inject.Inject
+
 
 class MainScreenActivity : AppCompatActivity() {
 
@@ -24,9 +25,18 @@ class MainScreenActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     injectDependencies()
-    setContentView(R.layout.activity_main_screen)
+    hideActionBar()
+    setContentView(io.door2door.mobile_code_challenge.R.layout.activity_main_screen)
     mapView.onCreate(savedInstanceState)
     mainScreenPresenter.viewCreated()
+  }
+
+  private fun hideActionBar() {
+    try {
+      this.supportActionBar!!.hide()
+    } catch (e: NullPointerException) {
+      Log.d(MainScreenActivity::class.simpleName, "Error in hiding action bar")
+    }
   }
 
   private fun injectDependencies() {

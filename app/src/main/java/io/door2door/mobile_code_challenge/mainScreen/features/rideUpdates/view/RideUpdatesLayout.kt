@@ -53,33 +53,27 @@ class RideUpdatesLayout : RelativeLayout, RideUpdatesView {
   }
 
     override fun updateStartEndAddresses(pickupAddress: String, dropOffAddress: String) {
-        addressesTextView.isVisible = true
-        addressesTextView.text = StringBuilder()
-            .append(resources.getString(R.string.address_from)).append(" ")
-            .append(pickupAddress).append(" ")
-            .append(resources.getString(R.string.address_to)).append(" ")
-            .append(dropOffAddress)
+        pickupLocationText.text = pickupAddress
+        dropOffLocationText.text = dropOffAddress
     }
 
     override fun updateStatus(status: String, bookingClosed: Boolean) {
-        statusTextView.isVisible = true
-        val bookingStatus = if (bookingClosed) resources.getString(R.string.booking_closed)
+        bookingStatusText.text = if (bookingClosed) resources.getString(R.string.booking_closed)
         else resources.getString(R.string.booking_open)
-        statusTextView.text = StringBuilder()
-            .append(status).append(" ")
-            .append(bookingStatus)
+        rideStatusText.text = status
     }
 
     override fun updateNextStopAddress(nextStopAddress: String) {
-        headingToTextView.text = StringBuilder()
+        nextStopLocationText.text = StringBuilder()
             .append(resources.getString(R.string.heading_to)).append(" ")
             .append(nextStopAddress)
     }
 
     override fun toggleNextStopAddressVisibility(status: String) {
         if (status == resources.getString(R.string.in_vehicle))
-            headingToTextView.isVisible = true
+            nextStopLocationText.isVisible = true
+
         if (status == resources.getString(R.string.ride_finished))
-            headingToTextView.isVisible = false
+            nextStopLocationText.isVisible = false
     }
 }

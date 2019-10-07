@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,54 +8,106 @@
     tools:parentTag="android.widget.RelativeLayout"
     >
 
-    <TextView
-        android:id="@+id/statusTextView"
-        style="@style/AppTheme"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/booking_general_margin"
-        android:layout_marginTop="@dimen/booking_general_margin"
-        android:layout_marginEnd="@dimen/booking_general_margin"
-        android:layout_marginBottom="@dimen/booking_general_margin"
-        android:background="@color/background_primary"
-        android:padding="@dimen/two_column"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:visibility="invisible" />
+        android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/greenBackgroundBox"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/space"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/headingToTextView"
-        style="@style/AppTheme"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/addressesTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="@dimen/booking_general_margin"
-        android:layout_marginTop="@dimen/booking_general_margin"
-        android:layout_marginEnd="@dimen/booking_general_margin"
-        android:layout_marginBottom="60sp"
-        android:background="@color/background_primary"
-        android:padding="@dimen/two_column"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:visibility="invisible" />
+        <TextView
+            android:id="@+id/pickupLocationText"
+            style="@style/AppTheme"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/rectangle_rounded_corners"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:fontFamily="@font/roboto"
+            android:padding="12dp"
+            android:textColor="@color/background_primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/addressesTextView"
-        style="@style/AppTheme"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="@dimen/booking_general_margin"
-        android:layout_marginTop="@dimen/booking_general_margin"
-        android:layout_marginEnd="@dimen/booking_general_margin"
-        android:layout_marginBottom="@dimen/four_column"
-        android:background="@color/background_primary"
-        android:padding="@dimen/two_column"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:visibility="invisible" />
+        <TextView
+            android:id="@+id/dropOffLocationText"
+            style="@style/AppTheme"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/rectangle_rounded_corners"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:fontFamily="@font/roboto"
+            android:padding="12dp"
+            android:textColor="@color/background_primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pickupLocationText" />
 
+        <Space
+            android:id="@+id/space"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dropOffLocationText" />
+
+        <TextView
+            android:id="@+id/rideStatusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rectangle_rounded_corners"
+            android:padding="12dp"
+            android:text="@string/waiting_for_pickup"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/greenBackgroundBox" />
+
+        <TextView
+            android:id="@+id/bookingStatusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/rectangle_rounded_corners"
+            android:fontFamily="@font/roboto"
+            android:padding="12dp"
+            android:text="@string/booking_open"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/greenBackgroundBox" />
+
+        <TextView
+            android:id="@+id/nextStopLocationText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/rectangle_rounded_corners"
+            android:fontFamily="@font/roboto"
+            android:padding="12dp"
+            android:textAlignment="center"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </merge>
