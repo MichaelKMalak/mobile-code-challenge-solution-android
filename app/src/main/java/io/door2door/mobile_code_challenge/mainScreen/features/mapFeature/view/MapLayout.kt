@@ -79,16 +79,14 @@ class MapLayout : MapView, RelativeLayout {
         }
     }
 
-
     override fun clearMap() {
+        clearAllMarkers()
         googleMap?.clear()
     }
 
-    override fun updateVehicleMarker(finalLatLng: LatLng) {
-        if (vehicleMarker == null) initializeVehicleMarker(finalLatLng)
-
-        animateMarker(vehicleMarker, finalLatLng)
-    }
+    /**
+     *    Functions for displaying the vehicle and animating it
+     */
 
     private fun initializeVehicleMarker(finalLatLng: LatLng) {
         showVehicleMarker(finalLatLng)
@@ -102,6 +100,12 @@ class MapLayout : MapView, RelativeLayout {
                 .anchor(VEHICLE_MARKER_ANCHOR, VEHICLE_MARKER_ANCHOR)
         )
         vehicleMarker!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.marker_vehicle))
+    }
+
+    override fun updateVehicleMarker(finalLatLng: LatLng) {
+        if (vehicleMarker == null) initializeVehicleMarker(finalLatLng)
+
+        animateMarker(vehicleMarker, finalLatLng)
     }
 
     private fun moveCamera(finalLatLng: LatLng) {
@@ -157,9 +161,12 @@ class MapLayout : MapView, RelativeLayout {
         return location
     }
 
+    /**
+     * Functions for displaying markers at the different types of location stops
+     */
 
     override fun showStartEndMarkers(pickupLatLng: LatLng,
-                                    dropOffLatLng: LatLng) {
+                                     dropOffLatLng: LatLng) {
         pickupMarker = showMarkerWithDrawable(pickupLatLng, pickup_drawable)
         dropOffMarker = showMarkerWithDrawable(dropOffLatLng, dropoff_drawable)
     }
@@ -182,6 +189,10 @@ class MapLayout : MapView, RelativeLayout {
         marker!!.setIcon(BitmapDescriptorFactory.fromResource(drawable))
         return marker
     }
+
+    /**
+     * Function for cleaning all displayed markers
+     */
 
     override fun clearAllMarkers() {
         pickupMarker?.remove()

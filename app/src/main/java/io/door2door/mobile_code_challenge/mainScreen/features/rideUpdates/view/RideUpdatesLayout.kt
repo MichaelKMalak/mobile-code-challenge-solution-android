@@ -52,10 +52,25 @@ class RideUpdatesLayout : RelativeLayout, RideUpdatesView {
     rideUpdatesPresenter.viewAttached()
   }
 
+    /**
+     * Functions for displaying different types of addresses on screen
+     */
     override fun updateStartEndAddresses(pickupAddress: String, dropOffAddress: String) {
         pickupLocationText.text = pickupAddress
         dropOffLocationText.text = dropOffAddress
     }
+
+
+
+    override fun updateNextStopAddress(nextStopAddress: String) {
+        nextStopLocationText.text = StringBuilder()
+            .append(resources.getString(R.string.heading_to)).append(" ")
+            .append(nextStopAddress)
+    }
+
+    /**
+     * Functions for handling status updates
+     */
 
     override fun updateStatus(status: String, bookingClosed: Boolean) {
         bookingIsClosedText.isVisible = bookingClosed
@@ -63,11 +78,6 @@ class RideUpdatesLayout : RelativeLayout, RideUpdatesView {
         rideStatusText.text = status
     }
 
-    override fun updateNextStopAddress(nextStopAddress: String) {
-        nextStopLocationText.text = StringBuilder()
-            .append(resources.getString(R.string.heading_to)).append(" ")
-            .append(nextStopAddress)
-    }
 
     override fun toggleNextStopAddressVisibility(status: String) {
         if (status == resources.getString(R.string.in_vehicle))

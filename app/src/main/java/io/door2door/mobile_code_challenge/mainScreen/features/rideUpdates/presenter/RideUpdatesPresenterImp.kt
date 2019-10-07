@@ -39,7 +39,6 @@ class RideUpdatesPresenterImp @Inject constructor(
                 .subscribeOn(Schedulers.io()) //thread to run on
                 .observeOn(AndroidSchedulers.mainThread()) //thread subscriber runs on
                 .subscribe({
-
                     if (!it.dropOffAddress.isNullOrBlank() && !it.pickupAddress.isNullOrBlank())
                         rideUpdatesView.updateStartEndAddresses(it.pickupAddress, it.dropOffAddress)
 

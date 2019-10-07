@@ -53,7 +53,7 @@ The program checks if status of booking is closed to clear all markers on screen
 4. I designed the drawables on illustrator for a vectorized code. For some reason, google map needed the markers to be an image, so I had to convert the vector images (SVG) to PNG.
 
 ## Assumptions
-1. The websocket will always send an event when the vehicle reaches an intermediate stop to update the "Heading to" text view. 
+1. The webSocket will always send an event when the vehicle reaches an intermediate stop to update the "Heading to" text view. 
 2. `Event.data` from the webSocket may be null but `Event.data[0].Address` will never be null but could be empty.
 
 ## What is missing?
