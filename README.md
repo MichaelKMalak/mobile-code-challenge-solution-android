@@ -35,38 +35,11 @@ the [requirements](https://github.com/door2door-io/d2d-code-challenges/tree/mast
 The vehicle marker will be animated
 
 * With every "intermediateStopLocationsChanged" event:
-The stops markers will be drawn (on top of each other)
+1. The stops markers will be drawn (on top of each other for a better memory performance since no need to "restart" when we finish)
+2. The screen shows the next stop address (assuming, the event will always be sent when a car reaches a stop)
 
 * With every "statusUpdated" and "bookingClosed" event:
 The status and the booking status will be updated on the screen.
-
-### Details
-* Added a stopLocationUpdateSubject 
-	1. In the Network package in BookingWebSocketImp, the subject listens to `BookingOpened` and `IntermediateStopLocationsChanged` events when `onMessage()` is called.
-	2. In MainScreenInteractor added `getStopLocationsUpdates()`
-
-* In `..features.mapFeature`
-	1. In `.presenter`: 
-		1.Added `subscribeToVehicleLocationUpdates()` function implementation. It's called when the `mapLoaded()` and it `updateVehicleLocation` in MapView 
-		2.Added `subscribeToStopLocationsUpdates()` function implementation. It's called when the `mapLoaded()` and it `showStartEndMarkers` as well as `updateStopsMarkers` in MapView
-	2. In `.view`: 
-		1. Added `updateVehicleMarker(LatLng)` 
-			1. Its first call will `initializeVehicleMarker(LatLng)` which will `showVehicleMarker(LatLng)` and `moveCamera(LatLng)` 
-			2. It normally calls `animateMarker(LatLng)`
-		2. Added `showStartEndMarkers(LatLng,LatLng)` and `updateStopsMarkers(intermediateStopLatLng: List<LatLng>)`
-		3. Function `updateVehicleLocation()` is called when the `presenter` calls `obtainGoogleMap()`.
-
-* In `..features.rideUpdates`
-	1. In `.presenter`: 
-		Added a call to `updateBookingStatus` in view
-	2. In `.view`: 
-		1. Added `updateAddresses` and `updateStatus` that takes many strings from the presenter (source: the network and the webSocket) and update textViews in rideUpdatesLayout.
-
-* In `..res/layout/feature_ride_updates`
-	1. Added two text views: `addressesTextView` with alignParentBottom and `statusTextView` at the top of the screen.
-	2. Made use of the supported textStyles and added a background tint for readability.
-
-* Designed simple drawables on illustrator and used them to draw the markers on the map.
 
 ## Issues
 1. When the internet connection is out for a bit while the application is running, it does not notify the user.
@@ -77,17 +50,19 @@ The status and the booking status will be updated on the screen.
 ## Notes
 1. I think the navigation bearing is already implemented by the rotation of the vehicle in `animateMarker`.
 2. There is no need for a release Google API key.
+3. Making the markers clickable to display addresses is redundant data that is not necessary since I display what is the next stop location on the screen already.
+4. I designed the drawables on illustrator for a vectorized code. For some reason, google map needed the markers to be an image, so I had to convert the vector images (SVG) to PNG.
+5. I am assuming that the websocket will always send an event when the vehicle reaches an intermediate stop to update the "Heading to" text view. Also, I am assuming that `Event.data` from the webSocket may be null but `Event.data[0].Address` will never be null but could be empty.
 
 ## What is missing?
 1. Unit testing.
 2. Handling webSocket's failure for a better UX.
-3. Displaying next stop address on screen.
-4. Making the markers clickable to display addresses.
 
 ## How to use?
 1. Import the project using Android studio. 
 2. Go to `google_maps_api.xml` 
 3. Google's API_key is set open to be used. However, if it was expired, kindly follow the instructions to create a Google Maps API key and paste it in the aforementioned xml file.
 
+
 ## Screenshot
-![](https://raw.githubusercontent.com/MichaelKMalak/mobile-code-challenge-solution-android/extras/img/screenshot_2.png)
+![](https://raw.githubusercontent.com/MichaelKMalak/mobile-code-challenge-solution-android/extra-2/img/Screenshot_3-01.png)
