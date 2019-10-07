@@ -25,34 +25,36 @@ the [requirements](https://github.com/door2door-io/d2d-code-challenges/tree/mast
 
 ## What is new? 
 ### Overview
-* Once the application opens it connects to the WebSocket and grabs the data which will:
-1. Initialize the vehicle location.
-2. Shows the pickup, drop-off, and intermediate stops markers.
-3. Shows the status on the screen.
-4. Shows the pickup and drop-off addresses on the screen.
+1. Once the application opens it connects to the WebSocket and grabs the data which will:
+..* Initialize the vehicle location.
+..* Shows the pickup, drop-off, and intermediate stops markers.
+..* Shows the status on the screen.
+..* Shows the pickup and drop-off addresses on the screen.
 
-* With every "vehicleLocationUpdated" event:
+2. With every "vehicleLocationUpdated" event:
 The vehicle marker will be animated
 
-* With every "intermediateStopLocationsChanged" event:
-1. The stops markers will be drawn (on top of each other for a better memory performance since no need to "restart" when we finish)
-2. The screen shows the next stop address (assuming, the event will always be sent when a car reaches a stop)
+3. With every "intermediateStopLocationsChanged" event:
+..* The stops markers will be drawn (on top of each other for a better memory performance since no need to "restart" when we finish)
+..* The screen shows the next stop address (assuming, the event will always be sent when a car reaches a stop)
 
-* With every "statusUpdated" and "bookingClosed" event:
+4. With every "statusUpdated" and "bookingClosed" event:
 The status and the booking status will be updated on the screen.
+The program checks if status of booking is closed to clear all markers on screen.
 
 ## Issues
 1. When the internet connection is out for a bit while the application is running, it does not notify the user.
-2. If the WebSocket was not working or the internet connection was lost, the application shows an empty map without notifying the user.
-3. When the ride ends, the markers and the vehicle remain visible on the screen.
-4. When the user zooms in with elevation, the vehicle marker rotation is not right.
+2. When the user zooms in with elevation, the vehicle marker rotation is not right.
 
 ## Notes
 1. I think the navigation bearing is already implemented by the rotation of the vehicle in `animateMarker`.
 2. There is no need for a release Google API key.
 3. Making the markers clickable to display addresses is redundant data that is not necessary since I display what is the next stop location on the screen already.
 4. I designed the drawables on illustrator for a vectorized code. For some reason, google map needed the markers to be an image, so I had to convert the vector images (SVG) to PNG.
-5. I am assuming that the websocket will always send an event when the vehicle reaches an intermediate stop to update the "Heading to" text view. Also, I am assuming that `Event.data` from the webSocket may be null but `Event.data[0].Address` will never be null but could be empty.
+
+## Assumptions
+1. The websocket will always send an event when the vehicle reaches an intermediate stop to update the "Heading to" text view. 
+2. `Event.data` from the webSocket may be null but `Event.data[0].Address` will never be null but could be empty.
 
 ## What is missing?
 1. Unit testing.
