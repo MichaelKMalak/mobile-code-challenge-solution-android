@@ -40,6 +40,7 @@ class MapLayout : MapView, RelativeLayout {
     private var vehicleMarker: Marker? = null
     private var pickupMarker: Marker? = null
     private var dropOffMarker: Marker? = null
+    private var intermediateStopsMarkers = mutableMapOf<LatLng, Marker?>()
 
 
     constructor(context: Context) : super(context) {
@@ -159,16 +160,17 @@ class MapLayout : MapView, RelativeLayout {
 
     override fun showStartEndMarkers(pickupLatLng: LatLng,
                                     dropOffLatLng: LatLng) {
-        pickupMarker?.remove()
-        dropOffMarker?.remove()
-
         pickupMarker = showMarkerWithDrawable(pickupLatLng, pickup_drawable)
         dropOffMarker = showMarkerWithDrawable(dropOffLatLng, dropoff_drawable)
     }
 
     override fun updateStopsMarkers(intermediateStopLatLng: List<LatLng>) {
         intermediateStopLatLng.forEach {
-            showMarkerWithDrawable(it, stops_drawable)
+            var newMarker = intermediateStopsMarkers[it]
+            if (newMarker == null) {
+                newMarker = showMarkerWithDrawable(it, stops_drawable)
+                intermediateStopsMarkers[it] = newMarker
+            }
         }
     }
 
@@ -179,6 +181,17 @@ class MapLayout : MapView, RelativeLayout {
         )
         marker!!.setIcon(BitmapDescriptorFactory.fromResource(drawable))
         return marker
+    }
+
+    override fun clearAllMarkers() {
+        pickupMarker?.remove()
+        dropOffMarker?.remove()
+        vehicleMarker?.remove()
+
+        intermediateStopsMarkers.forEach { (latLng, _) ->
+            intermediateStopsMarkers[latLng]?.remove()
+        }
+        intermediateStopsMarkers.clear()
     }
 }
 

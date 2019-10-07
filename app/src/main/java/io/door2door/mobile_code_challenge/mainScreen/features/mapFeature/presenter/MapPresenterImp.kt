@@ -57,9 +57,12 @@ class MapPresenterImp @Inject constructor(
                         it.dropOffLatLng
                     )
                 }
-                if (!it.intermediateStopLatLng.isNullOrEmpty()) {
-                    mapView.updateStopsMarkers(it.intermediateStopLatLng)
-                }
+
+                mapView.updateStopsMarkers(it.intermediateStopLatLng)
+
+                if (it.intermediateStopLatLng.isEmpty())
+                    mapView.clearAllMarkers()
+
             }, {
                 Log.d(tag, "Error on getting vehicle location updates")
             })

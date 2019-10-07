@@ -14,4 +14,6 @@ interface MapView {
                             dropOffLatLng: LatLng)
 
     fun updateStopsMarkers(intermediateStopLatLng: List<LatLng>)
+
+    fun clearAllMarkers()
 }
