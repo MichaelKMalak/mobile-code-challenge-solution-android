@@ -26,17 +26,17 @@ the [requirements](https://github.com/door2door-io/d2d-code-challenges/tree/mast
 ## What is new? 
 ### Overview
 1. Once the application opens it connects to the WebSocket and grabs the data which will:
-..* Initialize the vehicle location.
-..* Shows the pickup, drop-off, and intermediate stops markers.
-..* Shows the status on the screen.
-..* Shows the pickup and drop-off addresses on the screen.
+	* Initialize the vehicle location.
+	* Shows the pickup, drop-off, and intermediate stops markers.
+	* Shows the status on the screen.
+	* Shows the pickup and drop-off addresses on the screen.
 
 2. With every "vehicleLocationUpdated" event:
 The vehicle marker will be animated
 
 3. With every "intermediateStopLocationsChanged" event:
-..* The stops markers will be drawn (on top of each other for a better memory performance since no need to "restart" when we finish)
-..* The screen shows the next stop address (assuming, the event will always be sent when a car reaches a stop)
+	* The stops markers will be drawn (on top of each other for a better memory performance since no need to "restart" when we finish)
+	* The screen shows the next stop address (assuming, the event will always be sent when a car reaches a stop)
 
 4. With every "statusUpdated" and "bookingClosed" event:
 The status and the booking status will be updated on the screen.
