@@ -24,6 +24,7 @@ class BookingsWebSocketImp @Inject constructor(
 
   override fun connectToWebSocket() {
     val request = Request.Builder().url(webSocketUrl).build()
+      okHttpClient.retryOnConnectionFailure()
     okHttpClient.newWebSocket(request, bookingWebSocketListener)
   }
 

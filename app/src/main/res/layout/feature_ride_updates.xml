@@ -38,6 +38,7 @@
             android:paddingEnd="12dp"
             android:textColor="@color/background_primary"
             android:textSize="18sp"
+            android:text="@string/address_from"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,6 +70,7 @@
             android:paddingEnd="12dp"
             android:textColor="@color/background_primary"
             android:textSize="18sp"
+            android:text="@string/address_to"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -121,6 +123,7 @@
             android:textAlignment="center"
             android:textColor="@color/background_primary"
             android:textStyle="bold"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/greenBackgroundBox" />
 

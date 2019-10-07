@@ -4,8 +4,8 @@
   <string name="waiting_for_pickup">Waiting for Pickup</string>
   <string name="in_vehicle">In vehicle</string>
   <string name="ride_finished">Ride has finished</string>
-  <string name="address_from">From</string>
-  <string name="address_to">to</string>
+  <string name="address_from">Pick-up Address</string>
+  <string name="address_to">Drop-off Address</string>
   <string name="booking_closed"> Booking is Closed</string>
   <string name="booking_open"> Booking is now Open</string>
     <string name="heading_to">Heading to:</string>
