@@ -52,6 +52,7 @@ The status and the booking status will be updated on the screen.
 2. There is no need for a release Google API key.
 3. Making the markers clickable to display addresses is redundant data that is not necessary since I display what is the next stop location on the screen already.
 4. I designed the drawables on illustrator for a vectorized code. For some reason, google map needed the markers to be an image, so I had to convert the vector images (SVG) to PNG.
+5. I am assuming that the websocket will always send an event when the vehicle reaches an intermediate stop to update the "Heading to" text view. Also, I am assuming that `Event.data` from the webSocket may be null but `Event.data[0].Address` will never be null but could be empty.
 
 ## What is missing?
 1. Unit testing.
