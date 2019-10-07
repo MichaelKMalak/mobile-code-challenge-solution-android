@@ -35,7 +35,8 @@ the [requirements](https://github.com/door2door-io/d2d-code-challenges/tree/mast
 The vehicle marker will be animated
 
 * With every "intermediateStopLocationsChanged" event:
-The stops markers will be drawn (on top of each other)
+1. The stops markers will be drawn (on top of each other for a better memory performance since no need to "restart" when we finish)
+2. The screen shows the next stop address (assuming, the event will always be sent when a car reaches a stop)
 
 * With every "statusUpdated" and "bookingClosed" event:
 The status and the booking status will be updated on the screen.
@@ -77,17 +78,18 @@ The status and the booking status will be updated on the screen.
 ## Notes
 1. I think the navigation bearing is already implemented by the rotation of the vehicle in `animateMarker`.
 2. There is no need for a release Google API key.
+3. Making the markers clickable to display addresses is redundant data that is not necessary since I display what is the next stop location on the screen already.
+4. I designed the drawables on illustrator for a vectorized code. For some reason, google map needed the markers to be an image, so I had to convert the vector images (SVG) to PNG.
 
 ## What is missing?
 1. Unit testing.
 2. Handling webSocket's failure for a better UX.
-3. Displaying next stop address on screen.
-4. Making the markers clickable to display addresses.
 
 ## How to use?
 1. Import the project using Android studio. 
 2. Go to `google_maps_api.xml` 
 3. Google's API_key is set open to be used. However, if it was expired, kindly follow the instructions to create a Google Maps API key and paste it in the aforementioned xml file.
 
+
 ## Screenshot
-![](https://raw.githubusercontent.com/MichaelKMalak/mobile-code-challenge-solution-android/extras/img/screenshot_2.png)
+![](https://raw.githubusercontent.com/MichaelKMalak/mobile-code-challenge-solution-android/extra-2/img/Screenshot_3-01.png)
