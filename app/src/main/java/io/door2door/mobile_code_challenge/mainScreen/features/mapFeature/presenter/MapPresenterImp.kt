@@ -1,8 +1,10 @@
 package io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.presenter
 
 import android.util.Log
+import io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.mapper.StatusMapper
 import io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.mapper.StopLocationsMapper
 import io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.mapper.VehicleLocationMapper
+import io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.model.BOOKING_CLOSED
 import io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.view.MapView
 import io.door2door.mobile_code_challenge.mainScreen.interactor.MainScreenInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,7 +16,8 @@ class MapPresenterImp @Inject constructor(
     private val mapView: MapView,
     private val mainScreenInteractor: MainScreenInteractor,
     private val vehicleLocationMapper: VehicleLocationMapper,
-    private val stopLocationsMapper: StopLocationsMapper
+    private val stopLocationsMapper: StopLocationsMapper,
+    private val statusMapper: StatusMapper
 ) : MapPresenter {
 
     private val disposables = CompositeDisposable()
@@ -30,8 +33,13 @@ class MapPresenterImp @Inject constructor(
     }
 
     override fun mapLoaded() {
+        subscribeToWebSocketUpdates()
+    }
+
+    private fun subscribeToWebSocketUpdates() {
         this.subscribeToVehicleLocationUpdates()
         this.subscribeToStopLocationsUpdates()
+        this.subscribeToStatusUpdates()
     }
 
     private fun subscribeToVehicleLocationUpdates() {
@@ -57,15 +65,24 @@ class MapPresenterImp @Inject constructor(
                         it.dropOffLatLng
                     )
                 }
-
                 mapView.updateStopsMarkers(it.intermediateStopLatLng)
-
-                //  if (it.intermediateStopLatLng.isEmpty())
-                //     mapView.clearAllMarkers()
-
             }, {
                 Log.d(tag, "Error on getting vehicle location updates")
             })
+        )
+    }
+
+    private fun subscribeToStatusUpdates() {
+        disposables.add(
+            mainScreenInteractor.getBookingStatusUpdates(statusMapper)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    if (it.status == BOOKING_CLOSED)
+                        mapView.clearAllMarkers()
+                }, {
+                    Log.d(tag, "Error on getting vehicle location updates")
+                })
         )
     }
 }

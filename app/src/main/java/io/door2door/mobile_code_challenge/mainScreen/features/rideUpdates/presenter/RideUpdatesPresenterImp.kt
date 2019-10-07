@@ -21,12 +21,16 @@ class RideUpdatesPresenterImp @Inject constructor(
     private val tag = RideUpdatesPresenterImp::class.simpleName
 
     override fun viewAttached() {
-        subscribeToBookingStatusUpdates()
-        subscribeToStopLocationsUpdates()
+        subscribeToWebSocketUpdates()
     }
 
     override fun viewDetached() {
         disposables.dispose()
+    }
+
+    private fun subscribeToWebSocketUpdates() {
+        subscribeToBookingStatusUpdates()
+        subscribeToStopLocationsUpdates()
     }
 
     private fun subscribeToBookingStatusUpdates() {
