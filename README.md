@@ -42,7 +42,7 @@ the [requirements](https://github.com/door2door-io/d2d-code-challenges/tree/mast
 The vehicle marker will be animated
 
 3. With every "intermediateStopLocationsChanged" event:
-	* The stops markers will be drawn (on top of each other for a better memory performance since no need to "restart" when we finish)
+	* The stops markers will be drawn.
 	* The screen shows the next stop address (assuming, the event will always be sent when a car reaches a stop)
 
 4. With every "statusUpdated" and "bookingClosed" event:
