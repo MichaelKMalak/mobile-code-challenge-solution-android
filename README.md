@@ -3,7 +3,7 @@
 This is a solution to the mobile code challenge by 'allygator shuttle', door2door's mobility service that operates in Berlin, and provides a mobile app that allows users to book pooled rides and track their progress. 
 
 ## Repository branches
-* The solution was forked after 3-4 days of starting the challange in a branch named: `main` in case it was needed by the examiners.
+* The solution was forked after 3-4 days of starting the challenge in a branch named: `main` in case it was needed by the examiners.
 
 * Regarding `extras` and `extras-2`, the latter is the most recent. The biggest difference between those two is the layout changes and saving the map markers to be removed when the booking is closed. 
 
