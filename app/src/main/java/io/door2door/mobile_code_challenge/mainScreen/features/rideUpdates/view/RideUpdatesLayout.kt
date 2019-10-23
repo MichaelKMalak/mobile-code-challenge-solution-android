@@ -1,6 +1,8 @@
 package io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.view
 
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
@@ -37,9 +39,14 @@ class RideUpdatesLayout : RelativeLayout, RideUpdatesView {
   private fun setUp(context: Context) {
     LayoutInflater.from(context).inflate(R.layout.feature_ride_updates, this, true)
     injectDependencies()
+      if (!isWiFiConnected(context))
+          displayWifiNotification()
+      else
+          hideWifiNotification()
   }
 
-  private fun injectDependencies() {
+
+    private fun injectDependencies() {
     DaggerRideUpdatesComponent.builder()
         .mainScreenComponent((context as MainScreenActivity).mainScreenComponent)
         .rideUpdatesModule(RideUpdatesModule(this))
@@ -51,6 +58,28 @@ class RideUpdatesLayout : RelativeLayout, RideUpdatesView {
     super.onAttachedToWindow()
     rideUpdatesPresenter.viewAttached()
   }
+
+    private fun isWiFiConnected(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            val network = connectivityManager.activeNetwork
+            val capabilities = connectivityManager.getNetworkCapabilities(network)
+            capabilities != null && capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+        } else {
+            @Suppress("DEPRECATION")
+            connectivityManager.activeNetworkInfo?.type == ConnectivityManager.TYPE_WIFI
+        }
+    }
+
+    private fun displayWifiNotification() {
+        wifiNotification.isVisible = true
+    }
+
+    private fun hideWifiNotification() {
+        wifiNotification.isVisible = false
+    }
+
 
     /**
      * Functions for displaying different types of addresses on screen

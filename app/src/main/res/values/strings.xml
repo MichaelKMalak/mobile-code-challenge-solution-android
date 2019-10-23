@@ -8,5 +8,7 @@
   <string name="address_to">Drop-off Address</string>
   <string name="booking_closed"> Booking is Closed</string>
   <string name="booking_open"> Booking is now Open</string>
-    <string name="heading_to">Heading to:</string>
+  <string name="heading_to">Heading to:</string>
+  <string name="wifi_notification">Please check the Wifi connection</string>
+
 </resources>

@@ -196,5 +196,30 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
+        <TextView
+            android:id="@+id/wifiNotification"
+
+            style="@style/text_small_bold"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="@dimen/one_and_a_half_column"
+            android:layout_marginRight="@dimen/one_and_a_half_column"
+            android:layout_marginBottom="@dimen/three_column"
+
+            android:background="@drawable/rectangle_rounded_corners"
+
+            android:padding="@dimen/one_and_a_half_column"
+
+            android:text="@string/wifi_notification"
+
+            android:textColor="@color/support_dark"
+
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </merge>
