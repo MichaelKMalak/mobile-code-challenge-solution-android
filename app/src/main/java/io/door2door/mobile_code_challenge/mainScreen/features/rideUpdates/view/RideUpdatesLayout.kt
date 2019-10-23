@@ -39,10 +39,10 @@ class RideUpdatesLayout : RelativeLayout, RideUpdatesView {
   private fun setUp(context: Context) {
     LayoutInflater.from(context).inflate(R.layout.feature_ride_updates, this, true)
     injectDependencies()
-      if (!isWiFiConnected(context))
-          displayWifiNotification()
-      else
-          hideWifiNotification()
+//      if (!isWiFiConnected(context))
+//          displayWifiNotification()
+//      else
+//          hideWifiNotification()
   }
 
 
