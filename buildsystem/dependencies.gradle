@@ -18,7 +18,7 @@ ext {
     hamcrestVersion = '1.3'
     assertJVersion = '3.11.1'
     robolectricVersion = '4.2'
-    mockitoKotlinVersion = '1.1.0'
+    mockitoKotlinVersion = '2.13.0'
 
     appDependencies = [androidAppCompat      : "androidx.appcompat:appcompat:$androidSupportVersion",
                        androidCoreKtx        : "androidx.core:core-ktx:$androidSupportVersion",
@@ -40,5 +40,5 @@ ext {
                            hamcrest     : "org.hamcrest:hamcrest-all:$hamcrestVersion",
                            assertJ      : "org.assertj:assertj-core:$assertJVersion",
                            robolectric  : "org.robolectric:robolectric:$robolectricVersion",
-                           mockitoKotlin: "com.nhaarman:mockito-kotlin:$mockitoKotlinVersion"]
+                           mockitoKotlin: "org.mockito:mockito-inline:$mockitoKotlinVersion"]
 }

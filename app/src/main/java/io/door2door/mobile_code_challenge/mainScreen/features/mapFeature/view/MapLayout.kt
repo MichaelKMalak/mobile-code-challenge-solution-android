@@ -25,9 +25,10 @@ import javax.inject.Inject
 
 private const val MARKER_ANIMATION_DURATION = 1000L
 private const val VEHICLE_MARKER_ANCHOR = 0.5f
-private const val pickup_drawable = R.drawable.pickup_location
-private const val dropoff_drawable = R.drawable.drop_location
-private const val stops_drawable = R.drawable.stop_location
+private const val PICKUP_DRAWABLE = R.drawable.pickup_location
+private const val DROPOFF_DRAWABLE = R.drawable.drop_location
+private const val STOPS_DRAWABLE = R.drawable.stop_location
+private const val VEHICLE_DRAWABLE = R.drawable.marker_vehicle
 
 class MapLayout : MapView, RelativeLayout {
 
@@ -88,6 +89,12 @@ class MapLayout : MapView, RelativeLayout {
      *    Functions for displaying the vehicle and animating it
      */
 
+    override fun updateVehicleMarker(finalLatLng: LatLng) {
+        if (vehicleMarker == null) initializeVehicleMarker(finalLatLng)
+
+        animateMarker(vehicleMarker, finalLatLng)
+    }
+
     private fun initializeVehicleMarker(finalLatLng: LatLng) {
         showVehicleMarker(finalLatLng)
         moveCamera(finalLatLng)
@@ -99,13 +106,7 @@ class MapLayout : MapView, RelativeLayout {
                 .position(finalLatLng)
                 .anchor(VEHICLE_MARKER_ANCHOR, VEHICLE_MARKER_ANCHOR)
         )
-        vehicleMarker!!.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.marker_vehicle))
-    }
-
-    override fun updateVehicleMarker(finalLatLng: LatLng) {
-        if (vehicleMarker == null) initializeVehicleMarker(finalLatLng)
-
-        animateMarker(vehicleMarker, finalLatLng)
+        vehicleMarker!!.setIcon(BitmapDescriptorFactory.fromResource(VEHICLE_DRAWABLE))
     }
 
     private fun moveCamera(finalLatLng: LatLng) {
@@ -167,15 +168,15 @@ class MapLayout : MapView, RelativeLayout {
 
     override fun showStartEndMarkers(pickupLatLng: LatLng,
                                      dropOffLatLng: LatLng) {
-        pickupMarker = showMarkerWithDrawable(pickupLatLng, pickup_drawable)
-        dropOffMarker = showMarkerWithDrawable(dropOffLatLng, dropoff_drawable)
+        pickupMarker = showMarkerWithDrawable(pickupLatLng, PICKUP_DRAWABLE)
+        dropOffMarker = showMarkerWithDrawable(dropOffLatLng, DROPOFF_DRAWABLE)
     }
 
     override fun updateStopsMarkers(intermediateStopLatLng: List<LatLng>) {
         intermediateStopLatLng.forEach {
             var newMarker = intermediateStopsMarkers[it]
             if (newMarker == null) {
-                newMarker = showMarkerWithDrawable(it, stops_drawable)
+                newMarker = showMarkerWithDrawable(it, STOPS_DRAWABLE)
                 intermediateStopsMarkers[it] = newMarker
             }
         }
@@ -186,7 +187,7 @@ class MapLayout : MapView, RelativeLayout {
             MarkerOptions()
                 .position(latLng)
         )
-        marker!!.setIcon(BitmapDescriptorFactory.fromResource(drawable))
+        marker?.setIcon(BitmapDescriptorFactory.fromResource(drawable))
         return marker
     }
 
