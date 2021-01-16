@@ -73,5 +73,4 @@ The program checks if status of booking is closed to clear all markers on screen
 
 
 ## Screenshot
-![](https://raw.githubusercontent.com/MichaelKMalak/mobile-code-challenge-solution-android/extra-2/img/Screenshot_4.png)
-![](https://raw.githubusercontent.com/MichaelKMalak/mobile-code-challenge-solution-android/extra-2/img/Screenshot_4_2.png)
+<img src="https://raw.githubusercontent.com/MichaelKMalak/mobile-code-challenge-solution-android/extra-2/img/Screenshot_4.png" width=30%/> <img src="https://raw.githubusercontent.com/MichaelKMalak/mobile-code-challenge-solution-android/extra-2/img/Screenshot_4_2.png" width=30%/>
