@@ -2,6 +2,9 @@
 
 This is a solution to the mobile code challenge by 'allygator shuttle', door2door's mobility service that operates in Berlin, and provides a mobile app that allows users to book pooled rides and track their progress. 
 
+## Screenshot
+<img src="https://raw.githubusercontent.com/MichaelKMalak/mobile-code-challenge-solution-android/extra-2/img/Screenshot_4.png" width=30%/> <img src="https://raw.githubusercontent.com/MichaelKMalak/mobile-code-challenge-solution-android/extra-2/img/Screenshot_4_2.png" width=30%/>
+
 ## Repository branches
 * The solution was forked after 3-4 days of starting the challenge in a branch named: `main` in case it was needed by the examiners.
 
@@ -70,7 +73,3 @@ The program checks if status of booking is closed to clear all markers on screen
 1. Import the project using Android studio. 
 2. Go to `google_maps_api.xml` 
 3. Google's API_key is set (open) to be used. However, if it was expired, kindly follow the instructions commented in the file to create a Google Maps API key and paste it in the aforementioned xml file.
-
-
-## Screenshot
-<img src="https://raw.githubusercontent.com/MichaelKMalak/mobile-code-challenge-solution-android/extra-2/img/Screenshot_4.png" width=30%/> <img src="https://raw.githubusercontent.com/MichaelKMalak/mobile-code-challenge-solution-android/extra-2/img/Screenshot_4_2.png" width=30%/>
