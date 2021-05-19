@@ -1,6 +1,6 @@
 # Mobile Code Challenge Android Solution
 
-This is a solution to the mobile code challenge by 'allygator shuttle', door2door's mobility service that operates in Berlin, and provides a mobile app that allows users to book pooled rides and track their progress. 
+This is a solution to the mobile code challenge by a mobility company that operates in Berlin. It provides a mobile app that allows users to book pooled rides and track their progress. 
 
 ## Screenshot
 <img src="https://raw.githubusercontent.com/MichaelKMalak/mobile-code-challenge-solution-android/extra-2/img/Screenshot_4.png" width=30%/> <img src="https://raw.githubusercontent.com/MichaelKMalak/mobile-code-challenge-solution-android/extra-2/img/Screenshot_4_2.png" width=30%/>
@@ -13,10 +13,10 @@ This is a solution to the mobile code challenge by 'allygator shuttle', door2doo
 * Regarding `extras-after-deadline`,  I am experimenting for a bit.
 
 ## About this project
-The application is basically a simulation (visualization) on google map view for data sent from [door2door's WebSocket](https://d2d-frontend-code-challenge.herokuapp.com/docs).
+The application is basically a simulation (visualization) on google map view for data sent from [mobilityCompany's WebSocket](https://d2d-frontend-code-challenge.herokuapp.com/docs).
 
-door2door's team implemented the basic architecture for this code and based on this framework I implemented a solution that satisfies 
-the [requirements](https://github.com/door2door-io/d2d-code-challenges/tree/master/mobile):
+mobilityCompany's team implemented the basic architecture for this code and based on this framework I implemented a solution that satisfies 
+the [requirements](https://github.com/mobilityCompany-io/d2d-code-challenges/tree/master/mobile):
  
 1. shows the user the live location of their assigned vehicle on a map
 2. shows the ride's current status (waiting, in the vehicle, dropped off) in a UI component

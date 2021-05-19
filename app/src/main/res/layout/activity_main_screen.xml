@@ -4,12 +4,12 @@
     android:layout_height="match_parent"
     >
 
-  <io.door2door.mobile_code_challenge.mainScreen.features.mapFeature.view.MapLayout
+  <io.mobilityCompany.mobile_code_challenge.mainScreen.features.mapFeature.view.MapLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       />
 
-  <io.door2door.mobile_code_challenge.mainScreen.features.rideUpdates.view.RideUpdatesLayout
+  <io.mobilityCompany.mobile_code_challenge.mainScreen.features.rideUpdates.view.RideUpdatesLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       />
